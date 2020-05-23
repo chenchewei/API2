@@ -10,7 +10,9 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet var StartingPoint: UITextField!
+    @IBOutlet var Destination: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

@@ -108,6 +108,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="Destination" destination="lMf-fg-w9h" id="Kiz-HB-kwK"/>
+                        <outlet property="StartingPoint" destination="Zbh-7i-moU" id="QTc-Iv-61F"/>
                         <outlet property="mapView" destination="jJh-X2-XCa" id="Kcg-tx-X6e"/>
                     </connections>
                 </viewController>
