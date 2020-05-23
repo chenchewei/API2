@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
 
@@ -14,7 +15,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    @IBOutlet var mapView: MKMapView!
+    static var location:CLLocationManager? = nil
+    // Show current location
+    @IBAction func CurrentLocation(_ sender: Any) {
+        if(ViewController.location == nil){
+            ViewController.location = CLLocationManager()
+            ViewController.location?.requestWhenInUseAuthorization()
+            ViewController.location?.startUpdatingLocation()
+        }
+        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+    }
+    
 }
 
