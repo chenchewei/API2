@@ -8,13 +8,18 @@
 
 import UIKit
 import MapKit
+import RealmSwift
+import Toast
 
 class ViewController: UIViewController {
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
     
+    let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(realm.configuration.fileURL!.deletingLastPathComponent().path)
         // Do any additional setup after loading the view.
     }
     @IBOutlet var mapView: MKMapView!
@@ -29,5 +34,18 @@ class ViewController: UIViewController {
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
     
+    
+    
+    
+}
+class tableView: UIViewController{
+    
+    
 }
 
+class stationTable: Object{
+    @objc dynamic var station = ""
+    @objc dynamic var location = ""
+    @objc dynamic var positionLat = 0.0   //coordinates
+    @objc dynamic var positionLon = 0.0   //coordinates
+}

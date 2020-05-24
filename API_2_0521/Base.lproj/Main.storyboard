@@ -117,6 +117,21 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
         </scene>
+        <!--Station View Controller-->
+        <scene sceneID="2qz-BF-a1E">
+            <objects>
+                <viewController storyboardIdentifier="StationVuewController" id="2a3-zZ-Ett" customClass="StationViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9ut-tp-U6T">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="IAC-E6-LBT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAb-mr-BLL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="26"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="eAz-e1-O8E">
             <objects>
@@ -184,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-61-eHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="846" y="-48"/>
+            <point key="canvasLocation" x="858" y="757"/>
         </scene>
     </scenes>
     <resources>

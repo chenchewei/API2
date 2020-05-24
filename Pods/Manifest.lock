@@ -1,0 +1,26 @@
+PODS:
+  - Realm (4.3.1):
+    - Realm/Headers (= 4.3.1)
+  - Realm/Headers (4.3.1)
+  - RealmSwift (4.3.1):
+    - Realm (= 4.3.1)
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - RealmSwift
+  - Toast
+
+SPEC REPOS:
+  trunk:
+    - Realm
+    - RealmSwift
+    - Toast
+
+SPEC CHECKSUMS:
+  Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
+  RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: 74fc90885964a5a2c020417774b3f86455742cf8
+
+COCOAPODS: 1.8.3

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StationViewController" customModule="API_2_0521" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rNR-8E-GhV">
+                    <rect key="frame" x="0.0" y="208" width="414" height="688"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ySh-zS-dU6">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="646"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="ySh-zS-dU6" firstAttribute="top" secondItem="rNR-8E-GhV" secondAttribute="top" id="Ke8-lu-A2G"/>
+                        <constraint firstAttribute="bottom" secondItem="ySh-zS-dU6" secondAttribute="bottom" constant="42" id="MOy-Oa-94T"/>
+                        <constraint firstAttribute="trailing" secondItem="ySh-zS-dU6" secondAttribute="trailing" id="WSo-AH-H5X"/>
+                        <constraint firstItem="ySh-zS-dU6" firstAttribute="leading" secondItem="rNR-8E-GhV" secondAttribute="leading" id="YzJ-bR-HEa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.51619351525821588" alpha="0.72078565140845074" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="6tm-dV-3zx" appends="YES" id="y6G-Ak-Zwf"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="83.705357142857139"/>
+        </view>
+        <tapGestureRecognizer id="6tm-dV-3zx"/>
+    </objects>
+</document>
