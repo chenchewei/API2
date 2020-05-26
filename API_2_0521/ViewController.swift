@@ -14,14 +14,18 @@ import Toast
 class ViewController: UIViewController {
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
+    @IBOutlet var StationDisplayTable: UITableView!
     
-    let realm = try! Realm()
+    //var stationTableArr : Results<stationTable>?
+    //let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(realm.configuration.fileURL!.deletingLastPathComponent().path)
-        // Do any additional setup after loading the view.
+        //stationTableArr = realm.objects(stationTable.self)
+        //print(realm.configuration.fileURL!.deletingLastPathComponent().path)
+        
     }
+    
     @IBOutlet var mapView: MKMapView!
     static var location:CLLocationManager? = nil
     // Show current location
@@ -35,10 +39,6 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
-}
-class tableView: UIViewController{
     
     
 }

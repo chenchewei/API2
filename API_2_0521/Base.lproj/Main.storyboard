@@ -48,6 +48,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pa-ru-DPW">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Stations"/>
+                                        <connections>
+                                            <segue destination="Yqz-Q3-ODr" kind="show" id="Pyi-Q0-hjd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
                                         <rect key="frame" x="207" y="0.0" width="207" height="30"/>
@@ -117,20 +120,36 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
         </scene>
-        <!--Station View Controller-->
-        <scene sceneID="2qz-BF-a1E">
+        <!--View Controller-->
+        <scene sceneID="eCX-sr-old">
             <objects>
-                <viewController storyboardIdentifier="StationVuewController" id="2a3-zZ-Ett" customClass="StationViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9ut-tp-U6T">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <viewController id="Yqz-Q3-ODr" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CdC-II-7dS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oJU-Vp-8Bf">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="IAC-E6-LBT"/>
+                        <constraints>
+                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="leading" secondItem="005-yd-hW2" secondAttribute="leading" id="LXk-8C-0JZ"/>
+                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="trailing" secondItem="005-yd-hW2" secondAttribute="trailing" id="mtR-7L-pkv"/>
+                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="bottom" secondItem="005-yd-hW2" secondAttribute="bottom" id="oOd-Og-rpK"/>
+                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="top" secondItem="005-yd-hW2" secondAttribute="top" id="sO1-za-Mtv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="005-yd-hW2"/>
                     </view>
+                    <navigationItem key="navigationItem" id="nqh-th-Umo"/>
+                    <connections>
+                        <outlet property="StationDisplayTable" destination="oJU-Vp-8Bf" id="XIZ-Yp-L5L"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SAb-mr-BLL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wRh-Up-EFh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="26"/>
+            <point key="canvasLocation" x="908.69565217391312" y="-49.553571428571423"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="eAz-e1-O8E">
