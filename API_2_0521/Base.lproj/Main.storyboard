@@ -41,6 +41,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AW-zZ-TPy">
                                 <rect key="frame" x="380" y="97" width="24" height="22"/>
                                 <state key="normal" title="Button" image="arrow.up.arrow.down" catalog="system"/>
+                                <connections>
+                                    <action selector="switchText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JSb-Ne-9GQ"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgT-xx-cPf">
                                 <rect key="frame" x="0.0" y="187" width="414" height="30"/>
@@ -49,7 +52,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Stations"/>
                                         <connections>
-                                            <segue destination="Yqz-Q3-ODr" kind="show" id="Pyi-Q0-hjd"/>
+                                            <segue destination="YFX-a2-fVu" kind="show" id="ctt-8h-MRu"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
@@ -121,40 +124,54 @@
             <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="eCX-sr-old">
+        <scene sceneID="8Fj-9l-4J3">
             <objects>
-                <viewController id="Yqz-Q3-ODr" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CdC-II-7dS">
+                <viewController id="YFX-a2-fVu" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IkB-Ge-Uyp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oJU-Vp-8Bf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type in THSR station or location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7ES-YI-aBm">
+                                <rect key="frame" x="20" y="38" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iwc-kk-mCe">
+                                <rect key="frame" x="20" y="80" width="374" height="697"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="YFX-a2-fVu" id="TxE-om-XTx"/>
+                                    <outlet property="delegate" destination="YFX-a2-fVu" id="M30-2v-mlP"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="leading" secondItem="005-yd-hW2" secondAttribute="leading" id="LXk-8C-0JZ"/>
-                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="trailing" secondItem="005-yd-hW2" secondAttribute="trailing" id="mtR-7L-pkv"/>
-                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="bottom" secondItem="005-yd-hW2" secondAttribute="bottom" id="oOd-Og-rpK"/>
-                            <constraint firstItem="oJU-Vp-8Bf" firstAttribute="top" secondItem="005-yd-hW2" secondAttribute="top" id="sO1-za-Mtv"/>
+                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="Iwc-kk-mCe" secondAttribute="trailing" constant="20" id="2fC-Nx-WwF"/>
+                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="7ES-YI-aBm" secondAttribute="bottom" constant="8" id="A53-9U-If0"/>
+                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="bottom" secondItem="Iwc-kk-mCe" secondAttribute="bottom" constant="31" id="GIB-gG-m2Y"/>
+                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="7ES-YI-aBm" secondAttribute="trailing" constant="20" id="b9K-wQ-fWZ"/>
+                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="bottom" secondItem="7ES-YI-aBm" secondAttribute="bottom" constant="736" id="c18-WI-iCQ"/>
+                            <constraint firstItem="7ES-YI-aBm" firstAttribute="top" secondItem="BNO-Bp-CRi" secondAttribute="top" constant="38" id="jbo-oo-9fw"/>
+                            <constraint firstItem="7ES-YI-aBm" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" constant="20" id="nGp-IY-vpT"/>
+                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" constant="20" id="zBi-ZW-f0K"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="005-yd-hW2"/>
+                        <viewLayoutGuide key="safeArea" id="BNO-Bp-CRi"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nqh-th-Umo"/>
+                    <navigationItem key="navigationItem" id="Qef-b8-nA1"/>
                     <connections>
-                        <outlet property="StationDisplayTable" destination="oJU-Vp-8Bf" id="XIZ-Yp-L5L"/>
+                        <outlet property="StationTable" destination="Iwc-kk-mCe" id="eOi-qX-6HZ"/>
+                        <outlet property="StationText" destination="7ES-YI-aBm" id="Wt0-eE-zPn"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wRh-Up-EFh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FKw-Vn-MHf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908.69565217391312" y="-49.553571428571423"/>
+            <point key="canvasLocation" x="857.97101449275374" y="-128.57142857142856"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="eAz-e1-O8E">
             <objects>
-                <viewController storyboardIdentifier="timetable" id="d3e-8Z-ayS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="timetable" id="d3e-8Z-ayS" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZY-rZ-z18">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
