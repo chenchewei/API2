@@ -15,9 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
     @IBOutlet var mapView: MKMapView!
-
-    @IBOutlet var StationTable: UITableView!
-    @IBOutlet var StationText: UITextField!
     
     var StationNameArr = ["Nangang","Taipei","Banciao","Taoyuan","Hsinchu","Miaoli","Taichung","Changhua","Yunlin","Chiayi","Tainan","Zuoying"]
     var StationAddressArr = ["台北市南港區南港路一段313號","台北市北平西路3號","新北市板橋區縣民大道二段7號","桃園市中壢區高鐵北路一段6號","新竹縣竹北市高鐵七路6號","苗栗縣後龍鎮高鐵三路268號","台中市烏日區站區二路8號","彰化縣田中鎮站區路二段99號","雲林縣虎尾鎮站前東路301號","嘉義縣太保市高鐵西路168號","台南市歸仁區歸仁大道100號","高雄市左營區高鐵路105號"]
@@ -25,25 +22,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
     }
-    /*
-    /* Show all stations */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = StationTable.dequeueReusableCell(withIdentifier: "reuseCell", for: indexPath)
-        cell.textLabel?.text = String(format:"%d cell", indexPath.row)
-        return cell
-    }*/
-    
-
-    
-    
     /* Show current location */
     static var location:CLLocationManager? = nil
     @IBAction func CurrentLocation(_ sender: Any) {
@@ -68,7 +51,6 @@ class ViewController: UIViewController {
     /* Station marks */
     func AllStationsAnnotation(){
         var count = 0
-        
         for i in stride(from: 0, to: 22, by: 2){
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(StationCoordinateArr[i], StationCoordinateArr[i+1])
@@ -76,12 +58,7 @@ class ViewController: UIViewController {
             annotation.subtitle = StationAddressArr[count]
             count+=1
             mapView.addAnnotation(annotation)
-            
         }
-    
-        
     }
-    
-    
 }
 

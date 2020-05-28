@@ -52,14 +52,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Stations"/>
                                         <connections>
-                                            <segue destination="YFX-a2-fVu" kind="show" id="ctt-8h-MRu"/>
+                                            <segue destination="YFX-a2-fVu" kind="show" id="bdZ-jr-hHs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
                                         <rect key="frame" x="207" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Timatable"/>
                                         <connections>
-                                            <segue destination="d3e-8Z-ayS" kind="show" id="Ov8-IH-Xkn"/>
+                                            <segue destination="d3e-8Z-ayS" kind="show" id="NhV-ez-cUj"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -123,10 +123,10 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
         </scene>
-        <!--View Controller-->
+        <!--Station View Controller-->
         <scene sceneID="8Fj-9l-4J3">
             <objects>
-                <viewController id="YFX-a2-fVu" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YFX-a2-fVu" customClass="StationViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IkB-Ge-Uyp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,8 +140,8 @@
                                 <rect key="frame" x="20" y="80" width="374" height="697"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="YFX-a2-fVu" id="TxE-om-XTx"/>
-                                    <outlet property="delegate" destination="YFX-a2-fVu" id="M30-2v-mlP"/>
+                                    <outlet property="dataSource" destination="YFX-a2-fVu" id="1bB-1g-4CY"/>
+                                    <outlet property="delegate" destination="YFX-a2-fVu" id="Vyd-uS-d58"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -160,18 +160,18 @@
                     </view>
                     <navigationItem key="navigationItem" id="Qef-b8-nA1"/>
                     <connections>
-                        <outlet property="StationTable" destination="Iwc-kk-mCe" id="eOi-qX-6HZ"/>
-                        <outlet property="StationText" destination="7ES-YI-aBm" id="Wt0-eE-zPn"/>
+                        <outlet property="StationTable" destination="Iwc-kk-mCe" id="Bmg-wt-dYf"/>
+                        <outlet property="StationText" destination="7ES-YI-aBm" id="GUU-qo-5EL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FKw-Vn-MHf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="857.97101449275374" y="-128.57142857142856"/>
+            <point key="canvasLocation" x="907" y="136"/>
         </scene>
-        <!--View Controller-->
+        <!--Time Table View Controller-->
         <scene sceneID="eAz-e1-O8E">
             <objects>
-                <viewController storyboardIdentifier="timetable" id="d3e-8Z-ayS" customClass="ViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="timetable" id="d3e-8Z-ayS" customClass="TimeTableViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZY-rZ-z18">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -235,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-61-eHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="757"/>
+            <point key="canvasLocation" x="132" y="830"/>
         </scene>
     </scenes>
     <resources>
