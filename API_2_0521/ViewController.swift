@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
+        mapView.delegate = self as? MKMapViewDelegate
+        MarksClicked(gestureReconizer: UILongPressGestureRecognizer)
     }
     /* Show current location */
     static var location:CLLocationManager? = nil
@@ -60,5 +62,28 @@ class ViewController: UIViewController {
             mapView.addAnnotation(annotation)
         }
     }
+    /* Marks alert*/
+    func MarksClicked(gestureReconizer: UILongPressGestureRecognizer){
+        print("--working--")
+        if(gestureReconizer.state != UIGestureRecognizer.State.began){
+            let alertController = UIAlertController(title: "站名", message: "", preferredStyle: .alert)
+            let StartAction = UIAlertAction(title: "設成起點", style: .default)
+            let DestAction = UIAlertAction(title: "設成終點", style: .default)
+            let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
+            let CancelAction = UIAlertAction(title: "取消", style: .cancel)
+            alertController.addAction(StartAction)
+            alertController.addAction(DestAction)
+            alertController.addAction(RestAction)
+            alertController.addAction(CancelAction)
+            present(alertController, animated: true)
+            
+        }
+    }
+    
+    
+    
 }
+
+    
+
 
