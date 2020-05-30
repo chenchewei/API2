@@ -40,6 +40,7 @@
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJh-X2-XCa">
                                 <rect key="frame" x="0.0" y="275" width="414" height="587"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ExP-Kc-buh"/>
                                 </connections>
@@ -64,14 +65,14 @@
                                         </constraints>
                                         <state key="normal" title="Stations"/>
                                         <connections>
-                                            <segue destination="YFX-a2-fVu" kind="show" id="bdZ-jr-hHs"/>
+                                            <segue destination="YFX-a2-fVu" kind="show" identifier="StationTableSegue" id="bdZ-jr-hHs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
                                         <rect key="frame" x="207" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Timatable"/>
                                         <connections>
-                                            <segue destination="d3e-8Z-ayS" kind="show" id="NhV-ez-cUj"/>
+                                            <action selector="CheckText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ozT-1y-UaX"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -83,7 +84,10 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="ME" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNX-Jb-wkh">
                                 <rect key="frame" x="299" y="819" width="113" height="22"/>
-                                <state key="normal" title="MyLocation" image="mappin.and.ellipse" catalog="system"/>
+                                <state key="normal" title="MyLocation" image="mappin.and.ellipse" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.51619351530000002" alpha="0.72078565139999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="CurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPC-Uh-9Aq"/>
                                 </connections>
@@ -125,6 +129,7 @@
                         <outlet property="Destination" destination="lMf-fg-w9h" id="Kiz-HB-kwK"/>
                         <outlet property="StartingPoint" destination="Zbh-7i-moU" id="QTc-Iv-61F"/>
                         <outlet property="mapView" destination="jJh-X2-XCa" id="Kcg-tx-X6e"/>
+                        <segue destination="d3e-8Z-ayS" kind="show" identifier="TimeTableSegue" id="48g-0s-ngc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -196,7 +201,7 @@
         <scene sceneID="eAz-e1-O8E">
             <objects>
                 <viewController storyboardIdentifier="timetable" id="d3e-8Z-ayS" customClass="TimeTableViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gZY-rZ-z18">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="gZY-rZ-z18">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

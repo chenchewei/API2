@@ -22,12 +22,19 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let longPress = UILongPressGestureRecognizer(target: self, action: "MarksClicked")
+        longPress.minimumPressDuration = 0.5
+        longPress.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(longPress)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
         mapView.delegate = self as? MKMapViewDelegate
-        MarksClicked(gestureReconizer: UILongPressGestureRecognizer)
+        
+        //_ = UILongPressGestureRecognizer(target: self, action: Selector(("MarksClicked:")))
+      
     }
     /* Show current location */
     static var location:CLLocationManager? = nil
@@ -62,10 +69,30 @@ class ViewController: UIViewController {
             mapView.addAnnotation(annotation)
         }
     }
-    /* Marks alert*/
-    func MarksClicked(gestureReconizer: UILongPressGestureRecognizer){
+    /* Make sure there are stations before segue */
+    @IBAction func CheckText(_ sender: Any) {
+        if(StartingPoint.text == Destination.text){
+            view.makeToast("Starting point and destination should be different.")
+        }
+        else if(StartingPoint.text == "" || Destination.text == ""){
+            view.makeToast("Starting point and destination cannot be blank.")
+        }
+        else{
+            self.performSegue(withIdentifier: "TimeTableSegue",sender: self)
+        }
+        
+        
+    }
+    
+    
+    
+    
+    /* Marks alert [FAILED] */
+    func MarksClicked(sender: UILongPressGestureRecognizer){
+        print()
         print("--working--")
-        if(gestureReconizer.state != UIGestureRecognizer.State.began){
+        print()
+        if(sender.state == UIGestureRecognizer.State.began){
             let alertController = UIAlertController(title: "站名", message: "", preferredStyle: .alert)
             let StartAction = UIAlertAction(title: "設成起點", style: .default)
             let DestAction = UIAlertAction(title: "設成終點", style: .default)
@@ -76,10 +103,10 @@ class ViewController: UIViewController {
             alertController.addAction(RestAction)
             alertController.addAction(CancelAction)
             present(alertController, animated: true)
-            
         }
     }
     
+     
     
     
 }
