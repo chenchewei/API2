@@ -35,11 +35,11 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /* Selected and jumped back(ongoing)*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        StationTable.deselectRow(at: indexPath, animated: true)
-        //print("Clicked ",indexPath.row)
+        
+        print("Clicked ",indexPath.row)
         /*let MainStoryBoard = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryBoard")
         self.navigationController?.pushViewController(MainStoryBoard, animated: true)*/
         
-        
+        StationTable.deselectRow(at: indexPath, animated: true)
     }
 }

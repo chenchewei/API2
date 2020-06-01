@@ -8,26 +8,46 @@
 
 import UIKit
 
-class TimeTableViewController: UIViewController {
+
+
+class TimeTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var LabelStack: UIStackView!
+  
+    class THSRModel :Codable{
+        
+    }
+    
     @IBOutlet var TrainTable: UITableView!
+    
+    var THSRdata : THSRModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         TrainTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
-        // Do any additional setup after loading the view.
+        
     }
-    /* Setup Station Table values */
+    /* Setup TimeTable Table values */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return 16
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = TrainTable.dequeueReusableCell(withIdentifier: "reuseCell")
-        cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "reuseCell")
+        let cellA = TrainTable.dequeueReusableCell(withIdentifier: "reuseCell",for: indexPath)
+        cellA.textLabel?.text = String(format: "%d cell",indexPath.row)
         
-        return cell!
+        return cellA
+        
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
