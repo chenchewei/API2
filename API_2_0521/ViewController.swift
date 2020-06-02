@@ -84,6 +84,21 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func unwindToStation(segue: UIStoryboardSegue){
+        if let StationTableController = segue.source as? ViewController{
+            if(StartingPoint.text == ""){
+                StartingPoint.text = StationTableController.ClickedData
+            }
+            else if(Destination.text == ""){
+                Destination.text =
+            }
+            else{
+                StartingPoint.text =
+                Destination.text = ""
+            }
+        }
+    }
+    
     
     
     
