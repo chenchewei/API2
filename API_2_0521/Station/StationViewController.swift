@@ -13,14 +13,11 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var StationTable: UITableView!
     @IBOutlet var StationText: UITextField!
     
+    
     var StationNameArr = ["南港","台北","板橋","桃園","新竹","苗栗","台中","彰化","雲林","嘉義","台南","左營"]
     var StationAddressArr = ["台北市南港區南港路一段313號","台北市北平西路3號","新北市板橋區縣民大道二段7號","桃園市中壢區高鐵北路一段6號","新竹縣竹北市高鐵七路6號","苗栗縣後龍鎮高鐵三路268號","台中市烏日區站區二路8號","彰化縣田中鎮站區路二段99號","雲林縣虎尾鎮站前東路301號","嘉義縣太保市高鐵西路168號","台南市歸仁區歸仁大道100號","高雄市左營區高鐵路105號"]
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cellcontent = sender as? UITableViewCell, let indexPath = StationTable.indexPath(for: cellcontent){
-            ClickedData = StationTable[indexPath.row]
-        }
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +39,8 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     /* Selected and jumped back(ongoing)*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //print("Clicked ",indexPath.row)
-        
+        print("Clicked ",indexPath.row)
+
         /*
         let MainStoryBoard = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryBoard")
         self.navigationController?.pushViewController(MainStoryBoard, animated: true)*/
