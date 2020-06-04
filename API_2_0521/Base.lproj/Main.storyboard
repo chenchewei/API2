@@ -65,7 +65,7 @@
                                         </constraints>
                                         <state key="normal" title="Stations"/>
                                         <connections>
-                                            <segue destination="YFX-a2-fVu" kind="show" identifier="StationTableSegue" id="bdZ-jr-hHs"/>
+                                            <segue destination="YFX-a2-fVu" kind="show" identifier="StationTableSegue" id="WQw-SU-Iq6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
@@ -144,13 +144,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type in THSR station or location" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7ES-YI-aBm">
-                                <rect key="frame" x="20" y="126" width="374" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iwc-kk-mCe">
-                                <rect key="frame" x="20" y="134" width="374" height="697"/>
+                                <rect key="frame" x="20" y="190" width="374" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KKq-t8-mVZ">
@@ -170,17 +165,24 @@
                                     <outlet property="delegate" destination="YFX-a2-fVu" id="Vyd-uS-d58"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Type THSR stations or locations" translatesAutoresizingMaskIntoConstraints="NO" id="ur4-vt-8DL">
+                                <rect key="frame" x="0.0" y="109" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="Iwc-kk-mCe" secondAttribute="trailing" constant="20" id="2fC-Nx-WwF"/>
-                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="7ES-YI-aBm" secondAttribute="bottom" constant="8" id="A53-9U-If0"/>
+                            <constraint firstItem="ur4-vt-8DL" firstAttribute="trailing" secondItem="BNO-Bp-CRi" secondAttribute="trailing" id="9j6-Y6-Omf"/>
                             <constraint firstItem="BNO-Bp-CRi" firstAttribute="bottom" secondItem="Iwc-kk-mCe" secondAttribute="bottom" constant="31" id="GIB-gG-m2Y"/>
-                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="7ES-YI-aBm" secondAttribute="trailing" constant="20" id="b9K-wQ-fWZ"/>
-                            <constraint firstItem="BNO-Bp-CRi" firstAttribute="bottom" secondItem="7ES-YI-aBm" secondAttribute="bottom" constant="736" id="c18-WI-iCQ"/>
-                            <constraint firstItem="7ES-YI-aBm" firstAttribute="top" secondItem="BNO-Bp-CRi" secondAttribute="top" constant="38" id="jbo-oo-9fw"/>
-                            <constraint firstItem="7ES-YI-aBm" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" constant="20" id="nGp-IY-vpT"/>
+                            <constraint firstItem="ur4-vt-8DL" firstAttribute="top" secondItem="BNO-Bp-CRi" secondAttribute="top" constant="21" id="T4S-ic-OYw"/>
+                            <constraint firstItem="ur4-vt-8DL" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" id="hAZ-9T-fyz"/>
+                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="ur4-vt-8DL" secondAttribute="bottom" constant="25" id="xB3-Kd-7EO"/>
                             <constraint firstItem="Iwc-kk-mCe" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" constant="20" id="zBi-ZW-f0K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BNO-Bp-CRi"/>
@@ -188,7 +190,6 @@
                     <navigationItem key="navigationItem" id="Qef-b8-nA1"/>
                     <connections>
                         <outlet property="StationTable" destination="Iwc-kk-mCe" id="Bmg-wt-dYf"/>
-                        <outlet property="StationText" destination="7ES-YI-aBm" id="GUU-qo-5EL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FKw-Vn-MHf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
