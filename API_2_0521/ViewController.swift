@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import Toast
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
@@ -22,24 +22,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //mapView.delegate = self
-        mapView.delegate = self as? MKMapViewDelegate
-        /*
-        let longPress = UILongPressGestureRecognizer(target: self, action: "MarksClicked")
-        longPress.minimumPressDuration = 0.5
-        longPress.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(longPress)*/
-        
+        mapView.delegate = self
+              
     }
     
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
-        
-        //_ = UILongPressGestureRecognizer(target: self, action: Selector(("MarksClicked:")))
       
     }
-    
-    
     
     /* Show current location */
     static var location:CLLocationManager? = nil
@@ -52,6 +42,7 @@ class ViewController: UIViewController {
         }
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
+    
    /* Switch Text */
     @IBAction func switchText(_ sender: Any) {
         if(StartingPoint.text != Destination.text){
@@ -63,6 +54,7 @@ class ViewController: UIViewController {
             view.makeToast("Starting point and destination should be different.")
         }
     }
+    
     /* Station pins */
     func AllStationsAnnotation(){
         var count = 0
@@ -71,11 +63,31 @@ class ViewController: UIViewController {
             annotation.coordinate = CLLocationCoordinate2DMake(StationCoordinateArr[i], StationCoordinateArr[i+1])
             annotation.title = StationNameArr[count]
             annotation.subtitle = StationAddressArr[count]
+            
             //print(count)
             count+=1
             mapView.addAnnotation(annotation)
         }
     }
+    
+    /* Tap and show alert view */
+    func mapView(_ mapView: MKMapView, didSelect : MKAnnotationView){
+        //print("PogChamp")
+        let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
+        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in})
+        let DestAction = UIAlertAction(title: "設成終點", style: .default)
+        let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
+        let CancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alertController.addAction(StartAction)
+        alertController.addAction(DestAction)
+        alertController.addAction(RestAction)
+        alertController.addAction(CancelAction)
+        present(alertController, animated: true)
+        
+    }
+    
+    
+    
     /* Making sure station texts arent blank before segue */
     @IBAction func CheckText(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
@@ -94,86 +106,9 @@ class ViewController: UIViewController {
     
     
     
-    func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView){
-        print("its working.....")
-        let annotationTap = UITapGestureRecognizer(target: self, action: "tapRecognized")
-        annotationTap.numberOfTouchesRequired = 1
-        view.addGestureRecognizer(annotationTap)
-        
-    }
-    
-    func tapRecognized(gesture: UITapGestureRecognizer){
-        let alertController = UIAlertController(title: "站名", message: "", preferredStyle: .alert)
-        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in})
-        let DestAction = UIAlertAction(title: "設成終點", style: .default)
-        let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
-        let CancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alertController.addAction(StartAction)
-        alertController.addAction(DestAction)
-        alertController.addAction(RestAction)
-        alertController.addAction(CancelAction)
-        present(alertController, animated: true)
-    
-    }
-    /* Marks alert [FAILED]
-    
-    
-    @objc func MarksClicked(sender: UILongPressGestureRecognizer){
-        print()
-        print("--working--")
-        print()
-        if(sender.state == UIGestureRecognizer.State.began){
-            let alertController = UIAlertController(title: "站名", message: "", preferredStyle: .alert)
-            let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in})
-            let DestAction = UIAlertAction(title: "設成終點", style: .default)
-            let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
-            let CancelAction = UIAlertAction(title: "取消", style: .cancel)
-            alertController.addAction(StartAction)
-            alertController.addAction(DestAction)
-            alertController.addAction(RestAction)
-            alertController.addAction(CancelAction)
-            present(alertController, animated: true)
-        }
-    }*/
-    
-    
     
     
 }
-/*
-extension ViewController: UIGestureRecognizerDelegate{
-    func MapTapped(){
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MarksClicked(sender:)))
-        lpgr.minimumPressDuration = 0.1
-        lpgr.delegate = self
-        self.mapView.addGestureRecognizer(lpgr)
-    }
- @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-    if gestureReconizer.state != UIGestureRecognizer.State.ended {
-         return
-     }
-    if gestureReconizer.state != UIGestureRecognizer.State.began {
-         /*
-         let touchLocation = gestureReconizer.location(in: mapView)
-         let locationCoordinate = mapView.convert(touchLocation,toCoordinateFrom: mapView)*/
-        print("--working!!!--")
-        let alertController = UIAlertController(title: "站名", message: "", preferredStyle: .alert)
-        let StartAction = UIAlertAction(title: "設成起點", style: .default)
-        let DestAction = UIAlertAction(title: "設成終點", style: .default)
-        let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
-        let CancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alertController.addAction(StartAction)
-        alertController.addAction(DestAction)
-        alertController.addAction(RestAction)
-        alertController.addAction(CancelAction)
-        present(alertController, animated: true)
-         
-         
-         
-         return
-     }
-    }
-}*/
-    
+
 
 

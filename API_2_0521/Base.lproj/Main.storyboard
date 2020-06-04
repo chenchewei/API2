@@ -172,6 +172,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="Iwc-kk-mCe" secondAttribute="trailing" constant="20" id="2fC-Nx-WwF"/>
                             <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="7ES-YI-aBm" secondAttribute="bottom" constant="8" id="A53-9U-If0"/>
