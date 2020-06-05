@@ -15,6 +15,13 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
             StationTable.reloadData()
         }
     }
+    func filterContent(for searchText: String){
+        resultName = StationNameArr.filter({(filterArr) -> Bool in
+            let words = filterArr
+            let Matched = words.localizedCaseInsensitiveContains(searchText)
+            return Matched
+        })
+    }
     
 
     @IBOutlet var StationTable: UITableView!
@@ -32,6 +39,7 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
         SearchController = UISearchController(searchResultsController: nil)
         SearchController?.searchResultsUpdater = self
+        SearchController?.searchBar.placeholder = "Type THSR stations or locations"
         
     }
     /* Setup Station Table values */
