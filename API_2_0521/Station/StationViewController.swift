@@ -8,24 +8,12 @@
 
 import UIKit
 
-class StationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = SearchController?.searchBar.text{
-            filterContent(for:searchText)
-            StationTable.reloadData()
-        }
-    }
-    func filterContent(for searchText: String){
-        resultName = StationNameArr.filter({(filterArr) -> Bool in
-            let words = filterArr
-            let Matched = words.localizedCaseInsensitiveContains(searchText)
-            return Matched
-        })
-    }
+class StationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate {
+    
     
 
     @IBOutlet var StationTable: UITableView!
-    var SearchController: UISearchController?
+    var SearchController: UISearchController!
     var resultName: [String] = []   //Search station name results
     var resultLocation: [String] = []   //Search station location results
     
@@ -39,9 +27,31 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
         SearchController = UISearchController(searchResultsController: nil)
         SearchController?.searchResultsUpdater = self
-        SearchController?.searchBar.placeholder = "Type THSR stations or locations"
+        SearchController.searchBar.delegate = self
+        SearchController.isActive = true
+        //SearchController?.searchBar.placeholder = "Type THSR stations or locations"
         
+        //DispatchQueue.main.async {
+            self.SearchController?.searchBar.becomeFirstResponder()
+        //}
     }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = SearchController?.searchBar.text{
+            filterContent(for: searchText)
+            StationTable.reloadData()
+        }
+    }
+    func filterContent(for searchText: String){
+        resultName = StationNameArr.filter({(filterArr) -> Bool in
+            let words = filterArr
+            let Matched = words.localizedCaseInsensitiveContains(searchText)
+            return Matched
+        })
+    }
+    
+    
+    
     /* Setup Station Table values */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 12

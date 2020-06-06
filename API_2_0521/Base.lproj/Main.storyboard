@@ -167,11 +167,14 @@
                             </tableView>
                             <searchBar contentMode="redraw" placeholder="Type THSR stations or locations" translatesAutoresizingMaskIntoConstraints="NO" id="ur4-vt-8DL">
                                 <rect key="frame" x="0.0" y="109" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
                                     <string>Title</string>
                                 </scopeButtonTitles>
+                                <connections>
+                                    <outlet property="delegate" destination="YFX-a2-fVu" id="Onw-Ry-pCA"/>
+                                </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
