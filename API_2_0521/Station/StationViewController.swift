@@ -10,8 +10,6 @@ import UIKit
 
 class StationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {//,UISearchResultsUpdating
     
-     
-
     @IBOutlet var StationTable: UITableView!
     
     var searchController: UISearchController!
@@ -32,14 +30,13 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
         StationTable.delegate = self
         StationTable.dataSource = self
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         searchController = UISearchController(searchResultsController: nil)
         //searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        definesPresentationContext = true
         //searchController.isActive = true
         //print("Pre")
         //print(searchController.isActive)
@@ -53,7 +50,8 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
             //print(resultName)
             return Stations.contains(searchText)
         })
-        StationTable.reloadData()
+        print("Done?")
+        //StationTable.reloadData()
         
     }
     /*
