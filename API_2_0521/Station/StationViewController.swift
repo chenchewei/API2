@@ -37,7 +37,6 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if(searchText == ""){
             shouldShowResult = false
-            StationTable.reloadData()
         }
         else{
             shouldShowResult = true
@@ -46,16 +45,14 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
             let AddressTempText: String = TempAddress
             return (AddressTempText.contains(searchText))
         })
-        //print(resultName)
         //print(resultAddress)
         StationTable.reloadData()
-
     }
     /* Setup Station Table values */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 12
         if(shouldShowResult == true){
-                return resultAddress.count
+            return resultAddress.count
         }
         else{
             return Stations.keys.count
