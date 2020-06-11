@@ -24,6 +24,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
     }
+
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
     }
@@ -53,6 +54,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
         var count = 0
         for i in stride(from: 0, to: 24, by: 2){
             let annotation = MKPointAnnotation()
+            print(annotation)
             annotation.coordinate = CLLocationCoordinate2DMake(StationCoordinateArr[i], StationCoordinateArr[i+1])
             annotation.title = StationNameArr[count]
             annotation.subtitle = StationAddressArr[count]
