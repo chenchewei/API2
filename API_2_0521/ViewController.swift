@@ -9,6 +9,24 @@
 import UIKit
 import MapKit
 import Toast
+/* API data structure */
+
+public class PTX: Codable {
+    var StationID : String
+    var StationAddress : String
+//    var StationName : StationNames
+//    var StationPosition : StationPositions
+}
+//class StationNames : Codable{
+//    var Zh_tw : String
+//    var En : String
+//}
+//class StationPositions : Codable {
+//    var PositionLat : Double
+//    var PositionLon : Double
+//}
+
+
 
 class ViewController: UIViewController,MKMapViewDelegate {
     
@@ -16,15 +34,51 @@ class ViewController: UIViewController,MKMapViewDelegate {
     @IBOutlet var Destination: UITextField!
     @IBOutlet var mapView: MKMapView!
     
+    var StationData :PTX?
+    
+    func getDataFromAPI(){
+        let StationUrl = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/Station?$top=30&$format=JSON"
+        let url = URL(string: StationUrl)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        
+        let task = URLSession.shared.dataTask(with: request){ data, response,error in
+            if(error != nil){
+                print("Failed",error!.localizedDescription)
+            }
+            else{
+                print("Succeed")
+                do{
+                    print("1")
+                    self.StationData = try JSONDecoder().decode(PTX.self, from: data!)
+                    print(self.StationData)
+                    print("2")
+                }
+                catch{
+                    print("3")
+                    print(error)
+                    //print(error.localizedDescription)
+                }
+            }
+        }
+        task.resume()
+        
+    }
+    
+    
+    
+    /*
     var StationNameArr = ["南港","台北","板橋","桃園","新竹","苗栗","台中","彰化","雲林","嘉義","台南","左營"]
     var StationAddressArr = ["台北市南港區南港路一段313號","台北市北平西路3號","新北市板橋區縣民大道二段7號","桃園市中壢區高鐵北路一段6號","新竹縣竹北市高鐵七路6號","苗栗縣後龍鎮高鐵三路268號","台中市烏日區站區二路8號","彰化縣田中鎮站區路二段99號","雲林縣虎尾鎮站前東路301號","嘉義縣太保市高鐵西路168號","台南市歸仁區歸仁大道100號","高雄市左營區高鐵路105號"]
-    var StationCoordinateArr = [25.053188323974609,121.60706329345703,25.047670364379883,121.51698303222656,25.013870239257813,121.46459197998047,25.012861251831055,121.21472930908203,24.808441162109375,121.04026031494141,24.605447769165039,120.82527160644531,24.112483978271484,120.615966796875,23.874326705932617,120.57460784912109,23.736230850219727,120.41651153564453,23.459506988525391,120.32325744628906,22.925077438354492,120.28620147705078,22.68739128112793,120.30748748779297]
+    var StationCoordinateArr = [25.053188323974609,121.60706329345703,25.047670364379883,121.51698303222656,25.013870239257813,121.46459197998047,25.012861251831055,121.21472930908203,24.808441162109375,121.04026031494141,24.605447769165039,120.82527160644531,24.112483978271484,120.615966796875,23.874326705932617,120.57460784912109,23.736230850219727,120.41651153564453,23.459506988525391,120.32325744628906,22.925077438354492,120.28620147705078,22.68739128112793,120.30748748779297]*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        getDataFromAPI()
     }
-
+/*
     override func viewWillAppear(_ animated: Bool) {
         AllStationsAnnotation()
     }
@@ -90,7 +144,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
     }
     /* Segue back from StationViewController[unwind FAILED] */
 
-    
+    */
 }
 
 
