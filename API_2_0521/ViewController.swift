@@ -14,17 +14,17 @@ import Toast
 public class PTX: Codable {
     var StationID : String
     var StationAddress : String
-//    var StationName : StationNames
-//    var StationPosition : StationPositions
+    var StationName : StationNames
+    var StationPosition : StationPositions
 }
-//class StationNames : Codable{
-//    var Zh_tw : String
-//    var En : String
-//}
-//class StationPositions : Codable {
-//    var PositionLat : Double
-//    var PositionLon : Double
-//}
+class StationNames : Codable{
+    var Zh_tw : String
+    var En : String
+}
+class StationPositions : Codable {
+    var PositionLat : Double
+    var PositionLon : Double
+}
 
 
 
