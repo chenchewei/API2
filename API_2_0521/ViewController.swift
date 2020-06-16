@@ -9,22 +9,67 @@
 import UIKit
 import MapKit
 import Toast
-/* API data structure */
+import Foundation
+import CommonCrypto
 
-public class PTX: Codable {
-    var StationID : String
-    var StationAddress : String
-    var StationName : StationNames
-    var StationPosition : StationPositions
+
+/* API Auth key */
+enum CryptoAlgorithm {
+    case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
+    
+    var HMACAlgorithm: CCHmacAlgorithm {
+        var result: Int = 0
+        switch self {
+        case .MD5:      result = kCCHmacAlgMD5
+        case .SHA1:     result = kCCHmacAlgSHA1
+        case .SHA224:   result = kCCHmacAlgSHA224
+        case .SHA256:   result = kCCHmacAlgSHA256
+        case .SHA384:   result = kCCHmacAlgSHA384
+        case .SHA512:   result = kCCHmacAlgSHA512
+        }
+        return CCHmacAlgorithm(result)
+    }
+    var digestLength: Int {
+        var result: Int32 = 0
+        switch self {
+        case .MD5:      result = CC_MD5_DIGEST_LENGTH
+        case .SHA1:     result = CC_SHA1_DIGEST_LENGTH
+        case .SHA224:   result = CC_SHA224_DIGEST_LENGTH
+        case .SHA256:   result = CC_SHA256_DIGEST_LENGTH
+        case .SHA384:   result = CC_SHA384_DIGEST_LENGTH
+        case .SHA512:   result = CC_SHA512_DIGEST_LENGTH
+        }
+        return Int(result)
+    }
 }
-class StationNames : Codable{
-    var Zh_tw : String
-    var En : String
+
+extension String {
+    func hmac(algorithm: CryptoAlgorithm, key: String) -> String {
+        let cKey = key.cString(using: String.Encoding.utf8)
+        let cData = self.cString(using: String.Encoding.utf8)
+        let digestLen = algorithm.digestLength
+        var result = [CUnsignedChar](repeating: 0, count: digestLen)
+        CCHmac(algorithm.HMACAlgorithm, cKey!, strlen(cKey!), cData!, strlen(cData!), &result)
+        let hmacData:Data = Data(bytes: result, count: digestLen)
+        let hmacBase64 = hmacData.base64EncodedString(options: .lineLength64Characters)
+        return String(hmacBase64)
+    }
 }
-class StationPositions : Codable {
-    var PositionLat : Double
-    var PositionLon : Double
+
+func getServerTime() -> String {
+    let dateFormater = DateFormatter()
+    dateFormater.dateFormat = "EEE, dd MMM yyyy HH:mm:ww zzz"
+    dateFormater.locale = Locale(identifier: "en_US")
+    dateFormater.timeZone = TimeZone(secondsFromGMT: 0)
+    return dateFormater.string(from: Date())
 }
+let APIUrl = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/Station?$top=30&$format=JSON";
+let APP_ID = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+let APP_KEY = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+let xdate : String = getServerTime();
+let signDate = "x-date: " + xdate;
+let base64HmacStr = signDate.hmac(algorithm: .SHA1, key: APP_KEY)
+let authorization:String = "hmac username=\""+APP_ID+"\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\""+base64HmacStr+"\""
 
 
 
@@ -33,38 +78,69 @@ class ViewController: UIViewController,MKMapViewDelegate {
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
     @IBOutlet var mapView: MKMapView!
+
+    /* API data structure */
+
+    public class PTX : Codable {
+        var StationID : String
+        var StationAddress : String
+        var StationName : StationNames
+        var StationPosition : StationPositions
+    }
+    class StationNames : Codable{
+        var Zh_tw : String
+        var En : String
+    }
+    class StationPositions : Codable {
+        var PositionLat : Double
+        var PositionLon : Double
+    }
     
-    var StationData :PTX?
+//    var StationData : PTX?
     
     func getDataFromAPI(){
-        let StationUrl = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/Station?$top=30&$format=JSON"
-        let url = URL(string: StationUrl)
+        let url = URL(string: APIUrl)
         var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
         
+        request.setValue(xdate, forHTTPHeaderField: "x-date")
+        request.setValue(authorization, forHTTPHeaderField: "Authorization")
+        request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
-        let task = URLSession.shared.dataTask(with: request){ data, response,error in
-            if(error != nil){
-                print("Failed",error!.localizedDescription)
-            }
-            else{
-                print("Succeed")
-                do{
-                    print("1")
-                    self.StationData = try JSONDecoder().decode(PTX.self, from: data!)
-                    print(self.StationData)
-                    print("2")
-                }
-                catch{
-                    print("3")
-                    print(error)
-                    //print(error.localizedDescription)
-                }
-            }
+        let completionHandler = {(data: Data?, response: URLResponse?, error: Error?) -> Void in
+            let content = String(data: data!, encoding: String.Encoding.utf8)!
+            print(content)
         }
-        task.resume()
+    
+    URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+//            let content = String(data: data!, encoding: String.Encoding.utf8)!
+//            print(content)
+
+        }
         
-    }
+        
+        
+//        request.httpMethod = "GET"
+//        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+//        let task = URLSession.shared.dataTask(with: request){ data, response,error in
+//            if(error != nil){
+//                print("Failed",error!.localizedDescription)
+//            }
+//            else{
+//                print("Succeed")
+//                do{
+////                    print(response)
+//                    let StationData = try JSONDecoder().decode([PTX].self, from: data!)
+//                    print(StationData)
+//                    print("2")
+//                }
+//                catch{
+//                    print("3")
+//                    print(error)
+//                }
+//            }
+//        }
+//        task.resume()
+//    }
     
     
     
