@@ -13,7 +13,7 @@ import Foundation
 import CommonCrypto
 
 
-/* API Auth key */
+/* PTX Auth key from sample code */
 enum CryptoAlgorithm {
     case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
     
@@ -42,7 +42,6 @@ enum CryptoAlgorithm {
         return Int(result)
     }
 }
-
 extension String {
     func hmac(algorithm: CryptoAlgorithm, key: String) -> String {
         let cKey = key.cString(using: String.Encoding.utf8)
@@ -55,7 +54,6 @@ extension String {
         return String(hmacBase64)
     }
 }
-
 func getServerTime() -> String {
     let dateFormater = DateFormatter()
     dateFormater.dateFormat = "EEE, dd MMM yyyy HH:mm:ww zzz"
@@ -71,77 +69,62 @@ let signDate = "x-date: " + xdate;
 let base64HmacStr = signDate.hmac(algorithm: .SHA1, key: APP_KEY)
 let authorization:String = "hmac username=\""+APP_ID+"\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\""+base64HmacStr+"\""
 
-
+/* API data structure */
+public class PTX : Codable {
+    var StationID : String
+    var StationAddress : String
+    var StationName : StationNames?
+    var StationPosition : StationPositions?
+}
+public class StationNames : Codable {
+    var Zh_tw : String?
+    var En : String?
+}
+public class StationPositions : Codable {
+    var PositionLat : Double?
+    var PositionLon : Double?
+}
+/* API datas*/
+public class Station {
+    var StationName = ""
+    var StationAddress = ""
+    var StationID = ""
+    var StationPositionLat = Double()
+    var StationPositionLon = Double()
+}
 
 class ViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
     @IBOutlet var mapView: MKMapView!
+    var StationList = [Station]()
+    var StationData = [PTX]()
 
-    /* API data structure */
-
-    public class PTX : Codable {
-        var StationID : String
-        var StationAddress : String
-        var StationName : StationNames
-        var StationPosition : StationPositions
-    }
-    class StationNames : Codable{
-        var Zh_tw : String
-        var En : String
-    }
-    class StationPositions : Codable {
-        var PositionLat : Double
-        var PositionLon : Double
-    }
-    
-//    var StationData : PTX?
-    
     func getDataFromAPI(){
         let url = URL(string: APIUrl)
         var request = URLRequest(url: url!)
-        
         request.setValue(xdate, forHTTPHeaderField: "x-date")
         request.setValue(authorization, forHTTPHeaderField: "Authorization")
         request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
-        let completionHandler = {(data: Data?, response: URLResponse?, error: Error?) -> Void in
-            let content = String(data: data!, encoding: String.Encoding.utf8)!
-            print(content)
-        }
-    
-    URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
-//            let content = String(data: data!, encoding: String.Encoding.utf8)!
-//            print(content)
-
-        }
-        
-        
-        
-//        request.httpMethod = "GET"
-//        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
-//        let task = URLSession.shared.dataTask(with: request){ data, response,error in
-//            if(error != nil){
-//                print("Failed",error!.localizedDescription)
-//            }
-//            else{
-//                print("Succeed")
-//                do{
-////                    print(response)
-//                    let StationData = try JSONDecoder().decode([PTX].self, from: data!)
-//                    print(StationData)
-//                    print("2")
-//                }
-//                catch{
-//                    print("3")
-//                    print(error)
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-    
+        URLSession.shared.dataTask(with: request){ data, response,error in
+            do{
+//                print(response)
+//                print()
+                let StationData = try JSONDecoder().decode([PTX].self, from: data!)
+                print(StationData)
+                self.StationData = StationData
+                for i in 0..<StationData.count{
+                    let station = Station()
+                    station.StationName = StationData.
+                }
+            }
+            catch{
+                print(error)
+            }
+        }.resume()
+    }
     
     
     /*
@@ -153,6 +136,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         getDataFromAPI()
+        
     }
 /*
     override func viewWillAppear(_ animated: Bool) {
