@@ -65,7 +65,7 @@
                                         </constraints>
                                         <state key="normal" title="Stations"/>
                                         <connections>
-                                            <segue destination="YFX-a2-fVu" kind="show" identifier="StationTableSegue" id="WQw-SU-Iq6"/>
+                                            <action selector="StationClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OZY-hX-vbn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r7-tU-Rza">
@@ -129,7 +129,6 @@
                         <outlet property="Destination" destination="lMf-fg-w9h" id="Kiz-HB-kwK"/>
                         <outlet property="StartingPoint" destination="Zbh-7i-moU" id="QTc-Iv-61F"/>
                         <outlet property="mapView" destination="jJh-X2-XCa" id="Kcg-tx-X6e"/>
-                        <segue destination="d3e-8Z-ayS" kind="show" identifier="TimeTableSegue" id="48g-0s-ngc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -145,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iwc-kk-mCe">
-                                <rect key="frame" x="20" y="190" width="374" height="641"/>
+                                <rect key="frame" x="20" y="146" width="374" height="685"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KKq-t8-mVZ">
@@ -166,7 +165,7 @@
                                 </connections>
                             </tableView>
                             <searchBar contentMode="redraw" searchBarStyle="prominent" text="" placeholder="Type THSR stations or locations" translatesAutoresizingMaskIntoConstraints="NO" id="ur4-vt-8DL">
-                                <rect key="frame" x="0.0" y="109" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="65" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -225,28 +224,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="LabelStack" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="xF1-YF-yq4">
-                                <rect key="frame" x="4" y="144" width="406" height="20.5"/>
+                                <rect key="frame" x="4" y="100" width="406" height="64.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train No." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jul-4m-2IJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="64.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaO-wj-xRb">
-                                        <rect key="frame" x="109.5" y="0.0" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="109.5" y="0.0" width="77.5" height="64.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrival" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOK-Yh-1MC">
-                                        <rect key="frame" x="219" y="0.0" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="219" y="0.0" width="77.5" height="64.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6r-NA-bXb">
-                                        <rect key="frame" x="328.5" y="0.0" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="328.5" y="0.0" width="77.5" height="64.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -259,19 +258,19 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFX-kr-xar">
-                                <rect key="frame" x="69" y="106" width="42" height="21"/>
+                                <rect key="frame" x="69" y="62" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4u-PL-NYS">
-                                <rect key="frame" x="198" y="106" width="18.5" height="21"/>
+                                <rect key="frame" x="198" y="62" width="18.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uK8-Si-5rZ">
-                                <rect key="frame" x="303.5" y="106" width="44.5" height="20.5"/>
+                                <rect key="frame" x="303.5" y="62" width="44.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
