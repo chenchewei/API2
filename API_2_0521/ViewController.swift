@@ -84,8 +84,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
     
     var StationData = [PTX]()
-    var StationList = [Station]()
-    var SearchList = [Station]()    
+    var SearchList = [Station]()
            
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +94,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
     
     /* Environments set up */
     func getDataFromAPI(){
+        
         let url = URL(string: APIUrl)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")
@@ -102,9 +102,9 @@ class ViewController: UIViewController,MKMapViewDelegate {
         request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         let task = URLSession.shared.dataTask(with: request){ data, response,error in
         do {
+            var StationList = [Station]()
             self.StationData = try JSONDecoder().decode([PTX].self, from: data!)
-//            self.StationList = StationList
-  
+                        
             for i in 0..<self.StationData.count {
                 let station = Station()
                 station.StationID = self.StationData[i].StationID
@@ -112,17 +112,16 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 station.StationAddress = self.StationData[i].StationAddress
                 station.StationPositionLat = self.StationData[i].StationPosition?.PositionLat ?? 0.0
                 station.StationPositionLon = self.StationData[i].StationPosition?.PositionLon ?? 0.0
-                
-                self.StationList.append(station)
+                StationList.append(station)
+                self.SearchList = StationList   //throw datas
                 
                 /* Station pins */
                 let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2DMake(self.StationList[i].StationPositionLat, self.StationList[i].StationPositionLon)
-                annotation.title = self.StationList[i].StationName
-                annotation.subtitle = self.StationList[i].StationAddress
+                annotation.coordinate = CLLocationCoordinate2DMake(StationList[i].StationPositionLat, StationList[i].StationPositionLon)
+                annotation.title = StationList[i].StationName
+                annotation.subtitle = StationList[i].StationAddress
                 self.mapView.addAnnotation(annotation)
                 }
-//            print(self.StationList[0].StationName)
             }
         catch {
             print(error)
@@ -165,6 +164,8 @@ class ViewController: UIViewController,MKMapViewDelegate {
         alertController.addAction(CancelAction)
         present(alertController, animated: true)
     }
+    
+    
     /* Making sure station texts arent blank before segue */
     @IBAction func CheckText(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
@@ -174,12 +175,25 @@ class ViewController: UIViewController,MKMapViewDelegate {
             view.makeToast("Starting point and destination cannot be blank.")
         }
         else{
-            self.performSegue(withIdentifier: "TimeTableSegue",sender: self)
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let TimeTableVC = storyboard.instantiateViewController(identifier:"timetable") as! TimeTableViewController
+            present(TimeTableVC, animated: true)
         }
     }
+    
+    
+    
     /* Jump to StationViewController */
     @IBAction func StationClicked(_ sender: Any) {
-//        let
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let StationVC = storyboard.instantiateViewController(identifier:"Station") as! StationViewController
+        
+        StationVC.StationList = SearchList
+        
+        present(StationVC, animated: true)
+        
+        
+        
     }
     
     

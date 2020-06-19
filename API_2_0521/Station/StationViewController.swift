@@ -13,6 +13,11 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var StationTable: UITableView!
     /* Search bar settings*/
     var searchController: UISearchController!
+    
+    var StationList = [Station]()
+    var searchingList = [Station]()
+    
+    
     var resultAddress = [String]()
     var shouldShowResult = false    // flag
     /* Station datas */
@@ -26,6 +31,7 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
         StationTable.delegate = self
         StationTable.dataSource = self
+        searchingList = StationList
     }
     override func viewWillAppear(_ animated: Bool) {
         searchController = UISearchController(searchResultsController: nil)
@@ -36,39 +42,26 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     /* Search and filter stations*/
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if(searchText == ""){
-            shouldShowResult = false
+            searchingList = StationList
         }
         else{
-            shouldShowResult = true
+            searchingList = StationList.filter({ (station) -> Bool in
+                return (station.StationAddress.contains(searchText) || station.StationName.contains(searchText))
+            })
         }
-        resultAddress = Stations.keys.filter({ (TempAddress) -> Bool in
-            let AddressTempText: String = TempAddress
-            return (AddressTempText.contains(searchText))
-        })
-        //print(resultAddress)
         StationTable.reloadData()
     }
     /* Setup Station Table values */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return 12
-        if(shouldShowResult == true){
-            return resultAddress.count
-        }
-        else{
-            return Stations.keys.count
-        }
+        return searchingList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = StationTable.dequeueReusableCell(withIdentifier: "reuseCell")
         cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "reuseCell")
-        if(shouldShowResult == true){   //searching
-            cell?.textLabel?.text = Stations[resultAddress[indexPath.row]]
-            cell?.detailTextLabel?.text = resultAddress[indexPath.row]
-        }
-        else{   // init ot blank
-            cell?.textLabel?.text = StationNameArr[indexPath.row]
-            cell?.detailTextLabel?.text = StationAddressArr[indexPath.row]
-        }
+        
+        cell?.textLabel?.text = StationList[indexPath.row].StationName
+        cell?.detailTextLabel?.text = StationList[indexPath.row].StationAddress
+        
         return cell!
     }
     /* Developing*/
