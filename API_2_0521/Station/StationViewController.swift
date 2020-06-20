@@ -23,7 +23,7 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
    
     var StationRE : StationReturnValue!
     
-    var delegate: StationReturnDelegate?
+    var delegate : StationReturnDelegate?       // cant use weak var
 /* Pre load */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,10 +66,11 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        print("Clicked ",indexPath.row)
         StationTable.deselectRow(at: indexPath, animated: true)
-        
+        /* Error*/
         StationRE.ReturnLat = searchingList[indexPath.row].StationPositionLat
         StationRE.ReturnLon = searchingList[indexPath.row].StationPositionLon
         StationRE.ReturnFlag = true
+        
         delegate?.sendStationCoordinates(sentData: StationRE)
 
         navigationController?.popViewController(animated: true)

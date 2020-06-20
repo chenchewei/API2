@@ -12,8 +12,8 @@ import Toast
 import Foundation
 import CommonCrypto
 
-/* PTX Auth key from sample code */
-enum CryptoAlgorithm {
+/********************** PTX Auth key from sample code ******************************/
+enum CryptoAlgorithm {  //列舉
     case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
     
     var HMACAlgorithm: CCHmacAlgorithm {
@@ -67,7 +67,7 @@ let xdate : String = getServerTime();
 let signDate = "x-date: " + xdate;
 let base64HmacStr = signDate.hmac(algorithm: .SHA1, key: APP_KEY)
 let authorization:String = "hmac username=\""+APP_ID+"\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\""+base64HmacStr+"\""
-
+/*******************************************************************************/
 /* API datas*/
 public class Station {
     var StationName = ""
@@ -84,13 +84,6 @@ public class StationReturnValue {
 }
 
 class ViewController: UIViewController,MKMapViewDelegate {
-//    func sendStationCoordinates(sentData: CLLocationCoordinate2D) {
-//        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-//        let region = MKCoordinateRegion(center: sentData, span: span)
-//        print(sentData)
-//        mapView.setRegion(region, animated:true)
-//    }
-    
     
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
@@ -98,7 +91,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
     
     var StationData = [PTX]()
     var SearchList = [Station]()
-    var StationRE = StationReturnValue()
+    var StationRE = StationReturnValue()    // return values
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +109,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
         }
         print(StationRE.ReturnLat)
         print(StationRE.ReturnLon)
-//        sendStationCoordinates(sentData: CLLocationCoordinate2D())
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let StationVC = segue.destination as! StationViewController
@@ -214,10 +206,9 @@ class ViewController: UIViewController,MKMapViewDelegate {
         let StationVC = storyboard.instantiateViewController(withIdentifier:"Station") as! StationViewController
         StationVC.StationList = SearchList
         self.navigationController?.pushViewController(StationVC, animated: true)
-
     }
-    
 }
+
 extension ViewController: StationReturnDelegate {
     func sendStationCoordinates(sentData: StationReturnValue){
         StationRE = sentData
