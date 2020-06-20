@@ -76,8 +76,21 @@ public class Station {
     var StationPositionLat = Double()
     var StationPositionLon = Double()
 }
+/* Return coodinates from StationViewController */
+public class StationReturnValue {
+    var ReturnLat = Double()
+    var ReturnLon = Double()
+    var ReturnFlag = false
+}
 
 class ViewController: UIViewController,MKMapViewDelegate {
+//    func sendStationCoordinates(sentData: CLLocationCoordinate2D) {
+//        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+//        let region = MKCoordinateRegion(center: sentData, span: span)
+//        print(sentData)
+//        mapView.setRegion(region, animated:true)
+//    }
+    
     
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
@@ -85,16 +98,34 @@ class ViewController: UIViewController,MKMapViewDelegate {
     
     var StationData = [PTX]()
     var SearchList = [Station]()
-           
+    var StationRE = StationReturnValue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
         mapView.delegate = self
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if(StationRE.ReturnFlag){
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let center = CLLocationCoordinate2D(latitude: StationRE.ReturnLat, longitude: StationRE.ReturnLon)
+            let region = MKCoordinateRegion(center: center , span: span)
+            
+            mapView.setRegion(region, animated:true)
+            StationRE.ReturnFlag = false
+        }
+        print(StationRE.ReturnLat)
+        print(StationRE.ReturnLon)
+//        sendStationCoordinates(sentData: CLLocationCoordinate2D())
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let StationVC = segue.destination as! StationViewController
+        StationVC.StationRE = StationRE
+        StationVC.delegate = self
+    }
+
     /* Environments set up */
     func getDataFromAPI(){
-        
         let url = URL(string: APIUrl)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")
@@ -114,7 +145,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 station.StationPositionLon = self.StationData[i].StationPosition?.PositionLon ?? 0.0
                 StationList.append(station)
                 self.SearchList = StationList   //throw datas
-                
                 /* Station pins */
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2DMake(StationList[i].StationPositionLat, StationList[i].StationPositionLon)
@@ -164,8 +194,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
         alertController.addAction(CancelAction)
         present(alertController, animated: true)
     }
-    
-    
     /* Making sure station texts arent blank before segue */
     @IBAction func CheckText(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
@@ -176,25 +204,22 @@ class ViewController: UIViewController,MKMapViewDelegate {
         }
         else{
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let TimeTableVC = storyboard.instantiateViewController(identifier:"timetable") as! TimeTableViewController
-            present(TimeTableVC, animated: true)
+            let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
+            self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }
     }
-    
-    
-    
     /* Jump to StationViewController */
     @IBAction func StationClicked(_ sender: Any) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let StationVC = storyboard.instantiateViewController(identifier:"Station") as! StationViewController
-        
+        let StationVC = storyboard.instantiateViewController(withIdentifier:"Station") as! StationViewController
         StationVC.StationList = SearchList
-        
-        present(StationVC, animated: true)
-        
-        
-        
+        self.navigationController?.pushViewController(StationVC, animated: true)
+
     }
     
-    
+}
+extension ViewController: StationReturnDelegate {
+    func sendStationCoordinates(sentData: StationReturnValue){
+        StationRE = sentData
+    }
 }
