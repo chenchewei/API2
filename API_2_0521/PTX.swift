@@ -8,7 +8,7 @@
 
 import Foundation
 
-/* API data structure */
+/* PTX API data structure */
 public struct PTX : Codable {
     var StationID : String
     var StationAddress : String

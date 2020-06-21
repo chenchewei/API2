@@ -20,6 +20,7 @@
 		6C95DBAB2476BF8400A23607 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C95DBA92476BF8400A23607 /* Main.storyboard */; };
 		6C95DBAD2476BF8500A23607 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C95DBAC2476BF8500A23607 /* Assets.xcassets */; };
 		6C95DBB02476BF8500A23607 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C95DBAE2476BF8500A23607 /* LaunchScreen.storyboard */; };
+		6CDCFB21249FCB0000BD570E /* RestaurantStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */; };
 		7E1C13DF61C3963E2ED85EB1 /* Pods_API_2_0521.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF9CC662C61DD03D90E47C8 /* Pods_API_2_0521.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		6C95DBAC2476BF8500A23607 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C95DBAF2476BF8500A23607 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C95DBB12476BF8500A23607 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantStructure.swift; sourceTree = "<group>"; };
 		ABBBF432184619D2B933D098 /* Pods-API_2_0521.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-API_2_0521.release.xcconfig"; path = "Target Support Files/Pods-API_2_0521/Pods-API_2_0521.release.xcconfig"; sourceTree = "<group>"; };
 		FEF9CC662C61DD03D90E47C8 /* Pods_API_2_0521.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_API_2_0521.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 			children = (
 				6C2CE1AF249F8DA6000A2A27 /* RestaurantViewController.swift */,
 				6C2CE1B5249FA3D4000A2A27 /* RestaurantTableViewCell */,
+				6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				6C2CE1AD249B360B000A2A27 /* PTX.swift in Sources */,
 				6C59A8CB247FE46C003C7BAD /* TimeTableViewController.swift in Sources */,
 				6C2CE1B3249F8E40000A2A27 /* RestaurantTableViewCell.swift in Sources */,
+				6CDCFB21249FCB0000BD570E /* RestaurantStructure.swift in Sources */,
 				6C8B9CE924839A6B003F62F8 /* TimeTableDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
