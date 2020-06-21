@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 protocol StationReturnDelegate {
     func sendStationCoordinates(sentData: StationReturnValue)
@@ -31,6 +30,7 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.delegate = self
         StationTable.dataSource = self
         searchingList = StationList
+        StationRE = StationReturnValue()
     }
     override func viewWillAppear(_ animated: Bool) {
         searchController = UISearchController(searchResultsController: nil)
@@ -64,25 +64,16 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /* Selected and jumped back(ongoing)*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("Clicked ",indexPath.row)
+
         StationTable.deselectRow(at: indexPath, animated: true)
-        /* Error*/
         StationRE.ReturnLat = searchingList[indexPath.row].StationPositionLat
         StationRE.ReturnLon = searchingList[indexPath.row].StationPositionLon
         StationRE.ReturnFlag = true
-        
+
         delegate?.sendStationCoordinates(sentData: StationRE)
 
         navigationController?.popViewController(animated: true)
-
-        
-
-
-        
-
     }
-    
-    
     
     
 }

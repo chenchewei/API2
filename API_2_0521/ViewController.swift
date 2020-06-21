@@ -91,22 +91,17 @@ class ViewController: UIViewController,MKMapViewDelegate {
     
     var StationData = [PTX]()
     var SearchList = [Station]()
-    var StationRE = StationReturnValue()    // return values
+    var StationRE : StationReturnValue!    // return values
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
         mapView.delegate = self
+        StationRE = StationReturnValue()
     }
     override func viewWillAppear(_ animated: Bool) {
-        if(StationRE.ReturnFlag){
-            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            let center = CLLocationCoordinate2D(latitude: StationRE.ReturnLat, longitude: StationRE.ReturnLon)
-            let region = MKCoordinateRegion(center: center , span: span)
-            
-            mapView.setRegion(region, animated:true)
-            StationRE.ReturnFlag = false
-        }
+        ReturnValueActions()
+        print(StationRE.ReturnFlag)
         print(StationRE.ReturnLat)
         print(StationRE.ReturnLon)
     }
@@ -117,7 +112,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
     }
 
     /* Environments set up */
-    func getDataFromAPI(){
+    func getDataFromAPI() {
         let url = URL(string: APIUrl)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")
@@ -206,6 +201,17 @@ class ViewController: UIViewController,MKMapViewDelegate {
         let StationVC = storyboard.instantiateViewController(withIdentifier:"Station") as! StationViewController
         StationVC.StationList = SearchList
         self.navigationController?.pushViewController(StationVC, animated: true)
+    }
+    /* Return values */
+    func ReturnValueActions() {
+        if(StationRE.ReturnFlag){
+            print("12356")
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let center = CLLocationCoordinate2D(latitude: StationRE.ReturnLat, longitude: StationRE.ReturnLon)
+            let region = MKCoordinateRegion(center: center , span: span)
+            mapView.setRegion(region, animated:true)
+            StationRE.ReturnFlag = false
+        }
     }
 }
 
