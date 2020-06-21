@@ -7,6 +7,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Restaurant View Controller-->
+        <scene sceneID="bHj-Zm-TYx">
+            <objects>
+                <viewController restorationIdentifier="Restaurant" storyboardIdentifier="Restaurant" id="Xv8-ax-OGc" customClass="RestaurantViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sva-XX-qAV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Mj-bQ-VAq">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xv8-ax-OGc" id="eMe-hm-kwt"/>
+                                    <outlet property="delegate" destination="Xv8-ax-OGc" id="pEp-jZ-hfb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9Mj-bQ-VAq" firstAttribute="top" secondItem="tXM-4F-wyw" secondAttribute="top" id="GEz-HX-vWf"/>
+                            <constraint firstItem="9Mj-bQ-VAq" firstAttribute="bottom" secondItem="tXM-4F-wyw" secondAttribute="bottom" id="IkW-i5-PW3"/>
+                            <constraint firstItem="9Mj-bQ-VAq" firstAttribute="trailing" secondItem="tXM-4F-wyw" secondAttribute="trailing" id="gmF-B7-qQE"/>
+                            <constraint firstItem="9Mj-bQ-VAq" firstAttribute="leading" secondItem="tXM-4F-wyw" secondAttribute="leading" id="hf8-IF-I3P"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tXM-4F-wyw"/>
+                    </view>
+                    <connections>
+                        <outlet property="RestaurantTable" destination="9Mj-bQ-VAq" id="Q9I-3d-8No"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VQ3-Bo-61b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="-554.46428571428567"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>

@@ -169,11 +169,16 @@ class ViewController: UIViewController,MKMapViewDelegate {
     }
     /* Tap and show alert view */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
-        let ann = view.annotation?.title        
+        let ann = view.annotation?.title
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
+        
+        
         let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
         let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in self.StartingPoint.text = ann!!})
         let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in self.Destination.text = ann!!})
-        let RestAction = UIAlertAction(title: "附近餐廳", style: .default)
+        let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in self.navigationController?.pushViewController(RestaurantVC, animated: true)})
         let CancelAction = UIAlertAction(title: "取消", style: .cancel)
         alertController.addAction(StartAction)
         alertController.addAction(DestAction)
@@ -193,6 +198,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
+            
         }
     }
     /* Jump to StationViewController */

@@ -71,7 +71,7 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationRE.ReturnFlag = true
 
         delegate?.sendStationCoordinates(sentData: StationRE)
-
+        
         navigationController?.popViewController(animated: true)
     }
     
