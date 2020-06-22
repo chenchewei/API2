@@ -101,9 +101,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         ReturnValueActions()
-        print(StationRE.ReturnFlag)
-        print(StationRE.ReturnLat)
-        print(StationRE.ReturnLon)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let StationVC = segue.destination as! StationViewController
@@ -198,7 +195,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
-            
         }
     }
     /* Jump to StationViewController */
@@ -206,12 +202,12 @@ class ViewController: UIViewController,MKMapViewDelegate {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let StationVC = storyboard.instantiateViewController(withIdentifier:"Station") as! StationViewController
         StationVC.StationList = SearchList
+        StationVC.delegate = self
         self.navigationController?.pushViewController(StationVC, animated: true)
     }
     /* Return values */
     func ReturnValueActions() {
         if(StationRE.ReturnFlag){
-            print("12356")
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let center = CLLocationCoordinate2D(latitude: StationRE.ReturnLat, longitude: StationRE.ReturnLon)
             let region = MKCoordinateRegion(center: center , span: span)

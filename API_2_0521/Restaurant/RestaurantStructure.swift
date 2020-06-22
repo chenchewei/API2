@@ -16,5 +16,5 @@ public struct results : Codable {
     var vicinity : String   // Address
     var photo : String
     var reviewsNumber : Int
-    
+    var index : Int
 }
