@@ -8,10 +8,13 @@
 
 import Foundation
 /* Restaurant API data structure */
-public struct RestaurantStructure : Codable {
-    var count : Int
+public struct results : Codable {
+//    var type : Int
     var lat : Double
     var lng : Double
-    var range : String
-    var type : [Int]    // ?
+    var rating : Double
+    var vicinity : String   // Address
+    var photo : String
+    var reviewsNumber : Int
+    
 }
