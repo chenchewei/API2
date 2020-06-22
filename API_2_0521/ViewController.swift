@@ -93,6 +93,9 @@ class ViewController: UIViewController,MKMapViewDelegate {
     var SearchList = [Station]()
     var StationRE : StationReturnValue!    // return values
     
+    var TimeTableStartID = ""
+    var TimeTableDesID = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
@@ -133,9 +136,13 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2DMake(StationList[i].StationPositionLat, StationList[i].StationPositionLon)
                 annotation.title = StationList[i].StationName
-                annotation.subtitle = StationList[i].StationAddress
+                annotation.subtitle = StationList[i].StationID  //StationAddress
                 self.mapView.addAnnotation(annotation)
                 }
+//            for i in 0...11{
+//                print(StationList[i].StationID)
+//            }
+
             }
         catch {
             print(error)
@@ -167,14 +174,20 @@ class ViewController: UIViewController,MKMapViewDelegate {
     /* Tap and show alert view */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         let ann = view.annotation?.title
+        let SelectedID = view.annotation?.subtitle
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
         
-        
         let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
-        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in self.StartingPoint.text = ann!!})
-        let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in self.Destination.text = ann!!})
+        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
+            self.StartingPoint.text = ann!!
+            self.TimeTableStartID = SelectedID!!
+        })
+        let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
+            self.Destination.text = ann!!
+            self.TimeTableDesID = SelectedID!!
+        })
         let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in self.navigationController?.pushViewController(RestaurantVC, animated: true)})
         let CancelAction = UIAlertAction(title: "取消", style: .cancel)
         alertController.addAction(StartAction)
@@ -194,9 +207,21 @@ class ViewController: UIViewController,MKMapViewDelegate {
         else{
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
+            let Todaydate : String = getTime();
+            let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+Todaydate+"?$top=30&$format=JSON"
+            TimeTableVC.StartName = StartingPoint.text ?? ""
+            TimeTableVC.DesName = Destination.text ?? ""
+            TimeTableVC.TimeTableURL = TimeTableURL
+            
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }
     }
+    func getTime() -> String {
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        return dateFormater.string(from: Date())
+    }
+    
     /* Jump to StationViewController */
     @IBAction func StationClicked(_ sender: Any) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

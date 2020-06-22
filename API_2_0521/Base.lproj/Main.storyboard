@@ -343,7 +343,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="5PT-5o-zt6"/>
                     <connections>
+                        <outlet property="DestStation" destination="uK8-Si-5rZ" id="KJR-AU-x6z"/>
                         <outlet property="LabelStack" destination="xF1-YF-yq4" id="tjd-Yd-zNk"/>
+                        <outlet property="StartStation" destination="FFX-kr-xar" id="Vyd-xK-0B9"/>
                         <outlet property="TrainTable" destination="Tyf-hB-NlS" id="VLp-pu-rJS"/>
                     </connections>
                 </viewController>
@@ -358,13 +360,53 @@
                     <view key="view" contentMode="scaleToFill" id="Yw4-Dy-I2f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="150" translatesAutoresizingMaskIntoConstraints="NO" id="0y6-0J-gY1">
+                                <rect key="frame" x="62.5" y="54" width="289" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沿途停靠" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTX-t4-epj">
+                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="表定發車" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPJ-u0-tm1">
+                                        <rect key="frame" x="219.5" y="0.0" width="69.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oPJ-u0-tm1" firstAttribute="width" secondItem="bTX-t4-epj" secondAttribute="width" id="3RM-VB-5ZO"/>
+                                </constraints>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0EC-z5-dRA">
+                                <rect key="frame" x="0.0" y="82" width="414" height="780"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1Rg-Ta-nO9" id="UqH-eC-zci"/>
+                                    <outlet property="delegate" destination="1Rg-Ta-nO9" id="Glm-vv-YGK"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0EC-z5-dRA" firstAttribute="trailing" secondItem="DMg-Z8-se0" secondAttribute="trailing" id="1ZX-dl-HJr"/>
+                            <constraint firstItem="0y6-0J-gY1" firstAttribute="centerX" secondItem="Yw4-Dy-I2f" secondAttribute="centerX" id="DCS-o4-Yv3"/>
+                            <constraint firstItem="0y6-0J-gY1" firstAttribute="leading" secondItem="DMg-Z8-se0" secondAttribute="leading" constant="62.5" id="Feh-2J-r4O"/>
+                            <constraint firstItem="0EC-z5-dRA" firstAttribute="leading" secondItem="DMg-Z8-se0" secondAttribute="leading" id="Gui-RT-Y2w"/>
+                            <constraint firstItem="0EC-z5-dRA" firstAttribute="bottom" secondItem="DMg-Z8-se0" secondAttribute="bottom" id="Ia1-DI-GUn"/>
+                            <constraint firstItem="DMg-Z8-se0" firstAttribute="trailing" secondItem="0y6-0J-gY1" secondAttribute="trailing" constant="62.5" id="cIO-tb-d17"/>
+                            <constraint firstItem="0EC-z5-dRA" firstAttribute="top" secondItem="0y6-0J-gY1" secondAttribute="bottom" constant="7.5" id="oR9-FP-XlC"/>
+                            <constraint firstItem="0y6-0J-gY1" firstAttribute="top" secondItem="DMg-Z8-se0" secondAttribute="top" constant="10" id="qzB-rC-mFU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="DMg-Z8-se0"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8s-Ig-ywO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="1511"/>
+            <point key="canvasLocation" x="131.8840579710145" y="1510.7142857142856"/>
         </scene>
     </scenes>
     <resources>

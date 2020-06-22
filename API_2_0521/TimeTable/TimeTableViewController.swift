@@ -12,19 +12,27 @@ import UIKit
 
 class TimeTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var LabelStack: UIStackView!
-  
-    class THSRModel :Codable{
-        
-    }
+    @IBOutlet var StartStation: UILabel!
+    @IBOutlet var DestStation: UILabel!
+    
+    
     
     @IBOutlet var TrainTable: UITableView!
     
-    var THSRdata : THSRModel?
+    var THSRdata = [THSRModel]()
+    
+    var TimeTableURL = ""
+    var StartName = ""
+    var DesName = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         TrainTable.register(UITableViewCell.self, forCellReuseIdentifier: "reuseCell")
-        
+        print(TimeTableURL)
+        StartStation.text = StartName
+        DestStation.text = DesName
     }
     /* Setup TimeTable Table values */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

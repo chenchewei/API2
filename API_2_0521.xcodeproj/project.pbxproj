@@ -11,6 +11,7 @@
 		6C2CE1B0249F8DA6000A2A27 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2CE1AF249F8DA6000A2A27 /* RestaurantViewController.swift */; };
 		6C2CE1B3249F8E40000A2A27 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2CE1B1249F8E40000A2A27 /* RestaurantTableViewCell.swift */; };
 		6C2CE1B4249F8E40000A2A27 /* RestaurantTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C2CE1B2249F8E40000A2A27 /* RestaurantTableViewCell.xib */; };
+		6C35998C24A0F1A400CF3C35 /* THSR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35998B24A0F1A400CF3C35 /* THSR.swift */; };
 		6C59A8C8247FE448003C7BAD /* StationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8C7247FE448003C7BAD /* StationViewController.swift */; };
 		6C59A8CB247FE46C003C7BAD /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */; };
 		6C59A8CD247FE7FB003C7BAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8CC247FE7FB003C7BAD /* SceneDelegate.swift */; };
@@ -30,6 +31,7 @@
 		6C2CE1AF249F8DA6000A2A27 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		6C2CE1B1249F8E40000A2A27 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		6C2CE1B2249F8E40000A2A27 /* RestaurantTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantTableViewCell.xib; sourceTree = "<group>"; };
+		6C35998B24A0F1A400CF3C35 /* THSR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSR.swift; sourceTree = "<group>"; };
 		6C59A8C7247FE448003C7BAD /* StationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewController.swift; sourceTree = "<group>"; };
 		6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		6C59A8CC247FE7FB003C7BAD /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				6C2CE1AF249F8DA6000A2A27 /* RestaurantViewController.swift */,
-				6C2CE1B5249FA3D4000A2A27 /* RestaurantTableViewCell */,
 				6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */,
+				6C2CE1B5249FA3D4000A2A27 /* RestaurantTableViewCell */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -106,7 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */,
-				6C8B9CE824839A6B003F62F8 /* TimeTableDetailViewController.swift */,
+				6C35998B24A0F1A400CF3C35 /* THSR.swift */,
+				6CDCFB2224A0C54000BD570E /* TimeTableDetail */,
 			);
 			path = TimeTable;
 			sourceTree = "<group>";
@@ -145,6 +148,14 @@
 				6C2CE1AC249B360B000A2A27 /* PTX.swift */,
 			);
 			path = API_2_0521;
+			sourceTree = "<group>";
+		};
+		6CDCFB2224A0C54000BD570E /* TimeTableDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6C8B9CE824839A6B003F62F8 /* TimeTableDetailViewController.swift */,
+			);
+			path = TimeTableDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +284,7 @@
 				6C2CE1B3249F8E40000A2A27 /* RestaurantTableViewCell.swift in Sources */,
 				6CDCFB21249FCB0000BD570E /* RestaurantStructure.swift in Sources */,
 				6C8B9CE924839A6B003F62F8 /* TimeTableDetailViewController.swift in Sources */,
+				6C35998C24A0F1A400CF3C35 /* THSR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
