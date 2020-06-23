@@ -101,6 +101,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
         getDataFromAPI()
         mapView.delegate = self
         StationRE = StationReturnValue()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         ReturnValueActions()
@@ -139,10 +140,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 annotation.subtitle = StationList[i].StationID  //StationAddress
                 self.mapView.addAnnotation(annotation)
                 }
-//            for i in 0...11{
-//                print(StationList[i].StationID)
-//            }
-
             }
         catch {
             print(error)
@@ -212,6 +209,8 @@ class ViewController: UIViewController,MKMapViewDelegate {
             TimeTableVC.StartName = StartingPoint.text ?? ""
             TimeTableVC.DesName = Destination.text ?? ""
             TimeTableVC.TimeTableURL = TimeTableURL
+            TimeTableVC.xdate = xdate
+            TimeTableVC.authorization = authorization
             
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }

@@ -16,15 +16,14 @@ public struct THSRModel : Codable {
 public struct DailyTrainInfo : Codable {
     var TrainNo : String?
     var Direction : Int?
-    var StartingStationName : String
 }
 public struct OriginStopTime : Codable {
     var ArrivalTime : String?
     var DepartureTime : String?
-    var StationName : StationNames
+//    var StationName : StationNames
 }
 public struct DestinationStopTime : Codable {
     var ArrivalTime : String?
     var DepartureTime : String?
-    var StationName : StationNames
+//    var StationName : StationNames
 }
