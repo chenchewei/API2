@@ -83,6 +83,7 @@ public class StationReturnValue {
     var ReturnFlag = false
 }
 
+
 class ViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet var StartingPoint: UITextField!
@@ -95,6 +96,10 @@ class ViewController: UIViewController,MKMapViewDelegate {
     
     var TimeTableStartID = ""
     var TimeTableDesID = ""
+    
+    /* THSR */
+    var THSRdata = [THSRModel]()
+    var TimeTableList = [THSRDetail]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,11 +184,11 @@ class ViewController: UIViewController,MKMapViewDelegate {
         let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
         let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
             self.StartingPoint.text = ann!!
-            self.TimeTableStartID = SelectedID!!
-        })
+            self.TimeTableStartID = SelectedID!!})
         let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
             self.Destination.text = ann!!
             self.TimeTableDesID = SelectedID!!
+            self.getTHSRDatas()
         })
         let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in self.navigationController?.pushViewController(RestaurantVC, animated: true)})
         let CancelAction = UIAlertAction(title: "取消", style: .cancel)
@@ -204,23 +209,54 @@ class ViewController: UIViewController,MKMapViewDelegate {
         else{
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
-            let Todaydate : String = getTime();
-            let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+Todaydate+"?$top=30&$format=JSON"
+            
             TimeTableVC.StartName = StartingPoint.text ?? ""
             TimeTableVC.DesName = Destination.text ?? ""
-            TimeTableVC.TimeTableURL = TimeTableURL
-            TimeTableVC.xdate = xdate
-            TimeTableVC.authorization = authorization
             
+            
+            TimeTableVC.TimeTableList = TimeTableList
+
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }
+    }
+    func getTHSRDatas() {
+        let Todaydate : String = getTime();
+        let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+Todaydate+"?$top=30&$format=JSON"
+        let url = URL(string: TimeTableURL)
+        var request = URLRequest(url: url!)
+        request.setValue(xdate, forHTTPHeaderField: "x-date")
+        request.setValue(authorization, forHTTPHeaderField: "Authorization")
+        request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+        URLSession.shared.dataTask(with: request){ data, response,error in do {
+            var TempList = [THSRDetail]()
+            self.THSRdata = try JSONDecoder().decode([THSRModel].self, from: data!)
+            for i in 0..<self.THSRdata.count {
+                let timeTable = THSRDetail()
+                if(self.THSRdata[i].DailyTrainInfo?.Direction == 0) {
+                    timeTable.Direction = "南下"
+                }
+                else{
+                    timeTable.Direction = "北上"
+                    }
+                timeTable.TrainNo = self.THSRdata[i].DailyTrainInfo?.TrainNo ?? ""
+                timeTable.DepartureTime = self.THSRdata[i].OriginStopTime?.ArrivalTime ?? ""
+                timeTable.ArrivalTime = self.THSRdata[i].DestinationStopTime?.ArrivalTime ?? ""
+                TempList.append(timeTable)
+                self.TimeTableList = TempList
+//                print(self.TimeTableList[i].TrainNo)
+//                print()
+                }
+            }
+        catch {
+            print(error.localizedDescription)
+            }
+        }.resume()
     }
     func getTime() -> String {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         return dateFormater.string(from: Date())
     }
-    
     /* Jump to StationViewController */
     @IBAction func StationClicked(_ sender: Any) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
