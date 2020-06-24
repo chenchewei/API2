@@ -212,7 +212,8 @@ class ViewController: UIViewController,MKMapViewDelegate {
             
             TimeTableVC.StartName = StartingPoint.text ?? ""
             TimeTableVC.DesName = Destination.text ?? ""
-            
+            TimeTableVC.xdate = xdate
+            TimeTableVC.authorization = authorization
             
             TimeTableVC.TimeTableList = TimeTableList
 
@@ -243,8 +244,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 timeTable.ArrivalTime = self.THSRdata[i].DestinationStopTime?.ArrivalTime ?? ""
                 TempList.append(timeTable)
                 self.TimeTableList = TempList
-//                print(self.TimeTableList[i].TrainNo)
-//                print()
                 }
             }
         catch {

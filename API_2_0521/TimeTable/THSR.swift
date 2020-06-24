@@ -19,11 +19,7 @@ public struct DailyTrainInfo : Codable {
 }
 public struct OriginStopTime : Codable {
     var ArrivalTime : String?
-    var DepartureTime : String?
-//    var StationName : StationNames
 }
 public struct DestinationStopTime : Codable {
     var ArrivalTime : String?
-    var DepartureTime : String?
-//    var StationName : StationNames
 }

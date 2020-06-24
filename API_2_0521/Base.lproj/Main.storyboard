@@ -356,7 +356,7 @@
         <!--Time Table Detail View Controller-->
         <scene sceneID="2CY-U7-0BV">
             <objects>
-                <viewController id="1Rg-Ta-nO9" customClass="TimeTableDetailViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="TimeTableDetail" storyboardIdentifier="TimeTableDetail" id="1Rg-Ta-nO9" customClass="TimeTableDetailViewController" customModule="API_2_0521" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yw4-Dy-I2f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,6 +403,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DMg-Z8-se0"/>
                     </view>
+                    <connections>
+                        <outlet property="DetailTable" destination="0EC-z5-dRA" id="5Qu-qM-TML"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8s-Ig-ywO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

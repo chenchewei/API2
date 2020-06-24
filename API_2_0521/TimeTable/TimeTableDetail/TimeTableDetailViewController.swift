@@ -8,23 +8,25 @@
 
 import UIKit
 
+public class TrainsDetail {
+    var StationName = ""
+    var DepartureTime = ""
+}
+
 class TimeTableDetailViewController: UIViewController {
 
+    @IBOutlet var DetailTable: UITableView!
+    /* Received datas */
+    var TrainList = [TrainsDetail]()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        for i in TrainList.count {
+//            print(TrainList)
+//        }
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
