@@ -48,8 +48,6 @@ extension TimeTableDetailViewController: UITableViewDelegate, UITableViewDataSou
         if(cell.StationLabel.text == StartStation || cell.StationLabel.text == DestinationStation){
             cell.backgroundColor = UIColor.orange
         }
-        
-        
         return cell
     }
 }

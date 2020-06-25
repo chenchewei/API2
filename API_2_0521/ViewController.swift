@@ -190,7 +190,13 @@ class ViewController: UIViewController,MKMapViewDelegate {
             self.TimeTableDesID = SelectedID!!
             self.getTHSRDatas()
         })
-        let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in self.navigationController?.pushViewController(RestaurantVC, animated: true)})
+        let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
+            RestaurantVC.PinLat = view.annotation?.coordinate.latitude ?? 0.0
+            RestaurantVC.PinLng = view.annotation?.coordinate.longitude ?? 0.0
+            
+            self.navigationController?.pushViewController(RestaurantVC, animated: true)})
         let CancelAction = UIAlertAction(title: "取消", style: .cancel)
         alertController.addAction(StartAction)
         alertController.addAction(DestAction)

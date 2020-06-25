@@ -9,9 +9,13 @@
 import Foundation
 /* Restaurant API data structure */
 public struct results : Codable {
+    var content : [content]
+}
+public struct content : Codable {
 //    var type : Int
     var lat : Double
     var lng : Double
+    var name : String
     var rating : Double
     var vicinity : String   // Address
     var photo : String
