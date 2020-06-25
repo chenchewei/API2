@@ -78,8 +78,12 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         let TrainNo = TimeTableList[indexPath.row].TrainNo
         let Arrival = TimeTableList[indexPath.row].DepartureTime
         let Departure = TimeTableList[indexPath.row].ArrivalTime
-//        let Duration = TimeTableList[indexPath.row].DepartureTime - TimeTableList[indexPath.row].ArrivalTime
-        cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure)
+        
+        let DepartureTimes = TimeTableList[indexPath.row].DepartureTime.split(separator: ":")
+        let ArrivalTimes = TimeTableList[indexPath.row].ArrivalTime.split(separator: ":")
+        
+        let Duration = (Int(ArrivalTimes[0])!-Int(DepartureTimes[0])!)*60 + (Int(ArrivalTimes[1])!-Int(DepartureTimes[1])!)
+        cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure,Duration: String(Duration))
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
