@@ -216,7 +216,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
             TimeTableVC.authorization = authorization
             
             TimeTableVC.TimeTableList = TimeTableList
-
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }
     }

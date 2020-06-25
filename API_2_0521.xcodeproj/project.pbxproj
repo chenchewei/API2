@@ -25,7 +25,6 @@
 		6C9C6A2224A33EB500E12A2C /* TimeTableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C9C6A2024A33EB500E12A2C /* TimeTableTableViewCell.xib */; };
 		6C9C6A2524A37E7C00E12A2C /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9C6A2324A37E7C00E12A2C /* DetailTableViewCell.swift */; };
 		6C9C6A2624A37E7C00E12A2C /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C9C6A2424A37E7C00E12A2C /* DetailTableViewCell.xib */; };
-		6C9C6A2824A388C600E12A2C /* TrainNoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9C6A2724A388C600E12A2C /* TrainNoDetail.swift */; };
 		6CDCFB21249FCB0000BD570E /* RestaurantStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */; };
 		7E1C13DF61C3963E2ED85EB1 /* Pods_API_2_0521.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF9CC662C61DD03D90E47C8 /* Pods_API_2_0521.framework */; };
 /* End PBXBuildFile section */
@@ -52,7 +51,6 @@
 		6C9C6A2024A33EB500E12A2C /* TimeTableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableTableViewCell.xib; sourceTree = "<group>"; };
 		6C9C6A2324A37E7C00E12A2C /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		6C9C6A2424A37E7C00E12A2C /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
-		6C9C6A2724A388C600E12A2C /* TrainNoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainNoDetail.swift; sourceTree = "<group>"; };
 		6CDCFB20249FCB0000BD570E /* RestaurantStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantStructure.swift; sourceTree = "<group>"; };
 		ABBBF432184619D2B933D098 /* Pods-API_2_0521.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-API_2_0521.release.xcconfig"; path = "Target Support Files/Pods-API_2_0521/Pods-API_2_0521.release.xcconfig"; sourceTree = "<group>"; };
 		FEF9CC662C61DD03D90E47C8 /* Pods_API_2_0521.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_API_2_0521.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,7 +166,6 @@
 				6C8B9CE824839A6B003F62F8 /* TimeTableDetailViewController.swift */,
 				6C9C6A2324A37E7C00E12A2C /* DetailTableViewCell.swift */,
 				6C9C6A2424A37E7C00E12A2C /* DetailTableViewCell.xib */,
-				6C9C6A2724A388C600E12A2C /* TrainNoDetail.swift */,
 			);
 			path = TimeTableDetail;
 			sourceTree = "<group>";
@@ -295,7 +292,6 @@
 				6C9C6A2124A33EB500E12A2C /* TimeTableTableViewCell.swift in Sources */,
 				6C2CE1B0249F8DA6000A2A27 /* RestaurantViewController.swift in Sources */,
 				6C9C6A2524A37E7C00E12A2C /* DetailTableViewCell.swift in Sources */,
-				6C9C6A2824A388C600E12A2C /* TrainNoDetail.swift in Sources */,
 				6C95DBA82476BF8400A23607 /* ViewController.swift in Sources */,
 				6C95DBA42476BF8400A23607 /* AppDelegate.swift in Sources */,
 				6C59A8C8247FE448003C7BAD /* StationViewController.swift in Sources */,

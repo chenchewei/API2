@@ -7,7 +7,19 @@
 //
 
 import UIKit
-
+/* THSR TrainNo data structure */
+struct Trains: Codable {
+    var StopTimes : [StopTimes]
+}
+struct StopTimes : Codable {
+    var StationName : StationName?
+//    var StopSequence : Int
+    var DepartureTime : String
+}
+struct StationName : Codable {
+    var Zh_tw : String?
+    var En : String?
+}
 /* API datas*/
 public class THSRDetail {
     var TrainNo = ""
@@ -16,6 +28,10 @@ public class THSRDetail {
     var Duration = ""   //Des-Start
     var ArrivalTime = ""
 }
+public class TrainsDetail {
+    var StationName = ""
+    var DepartureTime = ""
+}
 
 class TimeTableViewController: UIViewController {
     @IBOutlet var LabelStack: UIStackView!
@@ -23,12 +39,13 @@ class TimeTableViewController: UIViewController {
     @IBOutlet var DestStation: UILabel!
     @IBOutlet var TrainTable: UITableView!
     
-    var TimeTableList = [THSRDetail]()
+    
     /* Received datas from ViewController for access PTX */
     var StartName = ""
     var DesName = ""
-    var xdate = ""
-    var authorization = ""
+    var xdate = String()
+    var authorization = String()
+    var TimeTableList = [THSRDetail]()
     /* API parameters */
     var TrainData = [Trains]()
     var TrainList = [TrainsDetail]()
@@ -46,6 +63,8 @@ class TimeTableViewController: UIViewController {
     func TableViewCellInit() {
         let cellNib = UINib(nibName: "TimeTableTableViewCell", bundle: nil)
         TrainTable.register(cellNib, forCellReuseIdentifier: "TimeTableTableViewCell")
+        TrainTable.rowHeight = 55
+        TrainTable.estimatedRowHeight = 0
     }
 }
 /* Setup TimeTable Table values */
@@ -62,43 +81,49 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
 //        let Duration = TimeTableList[indexPath.row].DepartureTime - TimeTableList[indexPath.row].ArrivalTime
         cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure)
         return cell
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TrainTable.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard.init(name: "Timetable", bundle: nil)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let DetailVC = storyboard.instantiateViewController(withIdentifier:"TimeTableDetail") as! TimeTableDetailViewController
         let DetailURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/Today/TrainNo/"+TimeTableList[indexPath.row].TrainNo+"?$top=30&$format=JSON"
+
         let url = URL(string: DetailURL)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")
         request.setValue(authorization, forHTTPHeaderField: "Authorization")
         request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
-        URLSession.shared.dataTask(with: request){ data, response,error in
-        do {
+        
+        URLSession.shared.dataTask(with: request){ data, response,error in do {
             var TempList = [TrainsDetail]()
             self.TrainData = try JSONDecoder().decode([Trains].self, from: data!)
-        
-            for i in 0..<self.TrainData.count {
-                for j in 0..<self.TrainData[i].StopTimes.count {
+            
+//            for i in 0..<self.TrainData.count {
+                
+                for j in 0..<self.TrainData[0].StopTimes.count {
                     let train = TrainsDetail()
-                    train.StationName = self.TrainData[i].StopTimes[j].StationName?.Zh_tw ?? ""
-                    train.DepartureTime = self.TrainData[i].StopTimes[j].Departure
+                    train.StationName = self.TrainData[0].StopTimes[j].StationName?.Zh_tw ?? ""
+                    train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime
                     TempList.append(train)
                     self.TrainList = TempList
-                    
-                    }
+//                    print(self.TrainList[j].StationName)
                 }
-            print(self.TrainList.count)
-            DetailVC.TrainList = self.TrainList
             }
         catch{
             print(error.localizedDescription)
             }
         }.resume()
         
-        
-        
-//        navigationController?.pushViewController(DetailVC, animated: true)
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
+            DetailVC.TrainList = self.TrainList
+            DetailVC.StartStation = self.StartName
+            DetailVC.DestinationStation = self.DesName
+            self.navigationController?.pushViewController(DetailVC, animated: true)
+            
         }
         
-    }
+        }
+        
+    
 }
