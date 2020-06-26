@@ -26,16 +26,14 @@ class RestaurantTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Double, RestaurantRating: Double) {
+//imgName: String,
+    func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int) {
         RestaurantImage.image = UIImage(contentsOfFile: imgName)
+        print(imgName)
         RestaurantName.text = RestaurantNames
         RestaurantAddress.text = RestaurantVicinity
-        RestaurantDistance.text = String(RestaurantDis) + "km away from your location"
-        RestaurantReputation.text = String(RestaurantRating)        
+        RestaurantDistance.text = String(format: "%.3f",RestaurantDis) + "km away"
+        RestaurantReputation.text = "Rating:"+String(RestaurantRating)+"("+String(RestaurantComments)+"comments)"
     }
-    
-    
-    
-    
+ 
 }

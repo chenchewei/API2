@@ -7,7 +7,25 @@
 //
 
 import UIKit
-
+import MapKit
+/* API Structure */
+struct object: Codable {
+    var results : results
+}
+struct results : Codable {
+    var content : [content]
+}
+struct content : Codable {
+    var lat : Double
+    var lng : Double
+    var name : String
+    var rating : Double
+    var vicinity : String   // Address
+    var photo : String
+    var reviewsNumber : Int
+    var index : Int
+}
+/* Data Init */
 class DataModel : Codable {
     var lastIndex = -1
     var count = 0
@@ -24,6 +42,7 @@ class Restaurant {
     var RestDistance = 0.0
     var RestReputation = 0.0
     var RestComments = 0
+    var RestPhoto = ""
 }
 
 class RestaurantViewController: UIViewController {
@@ -31,6 +50,7 @@ class RestaurantViewController: UIViewController {
     @IBOutlet var RestaurantTable: UITableView!
     var RestaurantList = [Restaurant]()
     let RestURL = "https://api.bluenet-ride.com/v2_0/lineBot/restaurant/get"
+    var RestaurantData : object?
     
     /* Received datas from ViewController */
     var PinLat = Double()//[0.0,0.0]  // [Lat,Lng]
@@ -38,8 +58,9 @@ class RestaurantViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableViewCellInit()
         getRestaurantDatas()
+        TableViewCellInit()
+        
         // Do any additional setup after loading the view.
     }
     func TableViewCellInit() {
@@ -57,7 +78,7 @@ class RestaurantViewController: UIViewController {
         data.type = [7]
         data.lat = PinLat
         data.lng = PinLng
-        data.range = "1000"
+        data.range = "2000"
         let jsonData = try? JSONEncoder().encode(data)
         
         let url = URL(string: RestURL)
@@ -66,18 +87,16 @@ class RestaurantViewController: UIViewController {
         request.httpBody = jsonData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let task = URLSession.shared.dataTask(with: request){ data, response,error in
-        do {
-            var ApiDataList = [Restaurant]()
-            
-            
-            
-            
-            
+        let task = URLSession.shared.dataTask(with: request){ data, response,error in DispatchQueue.main.async {
+            do {
+                self.RestaurantData = try JSONDecoder().decode(object.self, from: data!)
+                self.RestaurantTable.reloadData()
+                }
+            catch {
+                print(error.localizedDescription)
+                }
             }
-        catch {
-            print(error)
-            }
+        
         }
         task.resume()
         
@@ -88,12 +107,34 @@ class RestaurantViewController: UIViewController {
 }
 extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
 //        return RestaurantList.count
+        return RestaurantData?.results.content.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = RestaurantTable.dequeueReusableCell(withIdentifier: "RestaurantTableViewCell", for: indexPath) as! RestaurantTableViewCell
-//        cell.setCell(imgName: , RestaurantName: <#T##String#>)
+        
+        let PinLocation = CLLocation(latitude: self.PinLat, longitude: self.PinLng)
+        let TargetLocation = CLLocation(latitude: RestaurantData?.results.content[indexPath.row].lat ?? 0.0, longitude: RestaurantData?.results.content[indexPath.row].lng ?? 0.0)
+       
+        
+        
+        
+        let img = RestaurantData?.results.content[indexPath.row].photo
+        let RestNames = RestaurantData?.results.content[indexPath.row].name
+        let RestAddr = RestaurantData?.results.content[indexPath.row].vicinity
+        let RestDis = (TargetLocation.distance(from: PinLocation))/1000
+        let RestRating = RestaurantData?.results.content[indexPath.row].rating
+        let RestComments = RestaurantData?.results.content[indexPath.row].reviewsNumber
+        
+//        let img = RestaurantList[indexPath.row].RestPhoto
+//        let RestNames = RestaurantList[indexPath.row].RestName
+//        let RestAddr = RestaurantList[indexPath.row].RestAddress
+//        let RestDis = RestaurantList[indexPath.row].RestDistance
+//        let RestRating = String(RestaurantList[indexPath.row].RestReputation)+"("+String(RestaurantList[indexPath.row].RestComments)+"則評論)"
+//
+//
+////        imgName: img,
+        cell.setCell(imgName: img!,RestaurantNames: RestNames!,RestaurantVicinity: RestAddr!,RestaurantDis: Float(RestDis), RestaurantRating: RestRating!,RestaurantComments:RestComments!)
         return cell
     }
 }

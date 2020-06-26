@@ -101,16 +101,12 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         URLSession.shared.dataTask(with: request){ data, response,error in do {
             var TempList = [TrainsDetail]()
             self.TrainData = try JSONDecoder().decode([Trains].self, from: data!)
-            
-//            for i in 0..<self.TrainData.count {
-                
-                for j in 0..<self.TrainData[0].StopTimes.count {
-                    let train = TrainsDetail()
-                    train.StationName = self.TrainData[0].StopTimes[j].StationName?.Zh_tw ?? ""
-                    train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime
-                    TempList.append(train)
-                    self.TrainList = TempList
-//                    print(self.TrainList[j].StationName)
+            for j in 0..<self.TrainData[0].StopTimes.count {
+                let train = TrainsDetail()
+                train.StationName = self.TrainData[0].StopTimes[j].StationName?.Zh_tw ?? ""
+                train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime
+                TempList.append(train)
+                self.TrainList = TempList
                 }
             }
         catch{

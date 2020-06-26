@@ -22,9 +22,6 @@ class TimeTableDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TableViewCellInit()
-//        for i in 0...TrainList.count {
-//            print(TrainList[i].StationName)
-//        }
 
         // Do any additional setup after loading the view.
     }
