@@ -13,7 +13,6 @@ struct Trains: Codable {
 }
 struct StopTimes : Codable {
     var StationName : StationName?
-//    var StopSequence : Int
     var DepartureTime : String
 }
 struct StationName : Codable {
@@ -38,8 +37,6 @@ class TimeTableViewController: UIViewController {
     @IBOutlet var StartStation: UILabel!
     @IBOutlet var DestStation: UILabel!
     @IBOutlet var TrainTable: UITableView!
-    
-    
     /* Received datas from ViewController for access PTX */
     var StartName = ""
     var DesName = ""
@@ -49,9 +46,6 @@ class TimeTableViewController: UIViewController {
     /* API parameters */
     var TrainData = [Trains]()
     var TrainList = [TrainsDetail]()
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +80,7 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure,Duration: String(Duration))
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TrainTable.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -113,17 +108,11 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
             print(error.localizedDescription)
             }
         }.resume()
-        
-
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
             DetailVC.TrainList = self.TrainList
             DetailVC.StartStation = self.StartName
             DetailVC.DestinationStation = self.DesName
             self.navigationController?.pushViewController(DetailVC, animated: true)
-            
         }
-        
         }
-        
-    
 }

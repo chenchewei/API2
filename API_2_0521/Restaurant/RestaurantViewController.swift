@@ -34,8 +34,6 @@ class DataModel : Codable {
     var lng = Double()
     var range = String()
 }
-
-
 class Restaurant {
     var RestName = ""
     var RestAddress = ""
@@ -51,25 +49,23 @@ class RestaurantViewController: UIViewController {
     var RestaurantList = [Restaurant]()
     let RestURL = "https://api.bluenet-ride.com/v2_0/lineBot/restaurant/get"
     var RestaurantData : object?
-    
     /* Received datas from ViewController */
-    var PinLat = Double()//[0.0,0.0]  // [Lat,Lng]
+    var PinLat = Double()
     var PinLng = Double()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getRestaurantDatas()
         TableViewCellInit()
-        
         // Do any additional setup after loading the view.
     }
+    
     func TableViewCellInit() {
         let cellNib = UINib(nibName: "RestaurantTableViewCell", bundle: nil)
         RestaurantTable.register(cellNib, forCellReuseIdentifier: "RestaurantTableViewCell")
         RestaurantTable.rowHeight = 120
         RestaurantTable.estimatedRowHeight = 0
     }
-
     
     func getRestaurantDatas() {
         let data = DataModel()
@@ -79,8 +75,8 @@ class RestaurantViewController: UIViewController {
         data.lat = PinLat
         data.lng = PinLng
         data.range = "2000"
-        let jsonData = try? JSONEncoder().encode(data)
         
+        let jsonData = try? JSONEncoder().encode(data)
         let url = URL(string: RestURL)
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
@@ -96,28 +92,21 @@ class RestaurantViewController: UIViewController {
                 print(error.localizedDescription)
                 }
             }
-        
         }
         task.resume()
-        
-        
     }
-    
-    
 }
 extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return RestaurantList.count
         return RestaurantData?.results.content.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = RestaurantTable.dequeueReusableCell(withIdentifier: "RestaurantTableViewCell", for: indexPath) as! RestaurantTableViewCell
         
         let PinLocation = CLLocation(latitude: self.PinLat, longitude: self.PinLng)
         let TargetLocation = CLLocation(latitude: RestaurantData?.results.content[indexPath.row].lat ?? 0.0, longitude: RestaurantData?.results.content[indexPath.row].lng ?? 0.0)
-       
-        
-        
         
         let img = RestaurantData?.results.content[indexPath.row].photo
         let RestNames = RestaurantData?.results.content[indexPath.row].name
@@ -125,15 +114,7 @@ extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
         let RestDis = (TargetLocation.distance(from: PinLocation))/1000
         let RestRating = RestaurantData?.results.content[indexPath.row].rating
         let RestComments = RestaurantData?.results.content[indexPath.row].reviewsNumber
-        
-//        let img = RestaurantList[indexPath.row].RestPhoto
-//        let RestNames = RestaurantList[indexPath.row].RestName
-//        let RestAddr = RestaurantList[indexPath.row].RestAddress
-//        let RestDis = RestaurantList[indexPath.row].RestDistance
-//        let RestRating = String(RestaurantList[indexPath.row].RestReputation)+"("+String(RestaurantList[indexPath.row].RestComments)+"則評論)"
-//
-//
-////        imgName: img,
+
         cell.setCell(imgName: img!,RestaurantNames: RestNames!,RestaurantVicinity: RestAddr!,RestaurantDis: Float(RestDis), RestaurantRating: RestRating!,RestaurantComments:RestComments!)
         return cell
     }

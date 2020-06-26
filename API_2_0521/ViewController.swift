@@ -83,7 +83,6 @@ public class StationReturnValue {
     var ReturnFlag = false
 }
 
-
 class ViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet var StartingPoint: UITextField!
@@ -178,9 +177,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
         let ann = view.annotation?.title
         let SelectedID = view.annotation?.subtitle
         
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
-        
         let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
         let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
             self.StartingPoint.text = ann!!
@@ -220,7 +216,6 @@ class ViewController: UIViewController,MKMapViewDelegate {
             TimeTableVC.DesName = Destination.text ?? ""
             TimeTableVC.xdate = xdate
             TimeTableVC.authorization = authorization
-            
             TimeTableVC.TimeTableList = TimeTableList
             self.navigationController?.pushViewController(TimeTableVC, animated: true)
         }

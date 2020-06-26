@@ -33,5 +33,4 @@ class TimeTableTableViewCell: UITableViewCell {
         DepartureLabel.text = Departure
         DurationLabel.text = Duration + "mins"
     }
-    
 }

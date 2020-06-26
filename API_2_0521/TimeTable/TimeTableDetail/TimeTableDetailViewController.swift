@@ -8,16 +8,12 @@
 
 import UIKit
 
-
-
 class TimeTableDetailViewController: UIViewController {
-
     @IBOutlet var DetailTable: UITableView!
     /* Received datas */
     var TrainList = [TrainsDetail]()
     var StartStation = ""
     var DestinationStation = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +27,8 @@ class TimeTableDetailViewController: UIViewController {
         DetailTable.rowHeight = 45
         DetailTable.estimatedRowHeight = 0
     }
-    
 }
+
 extension TimeTableDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TrainList.count

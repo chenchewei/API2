@@ -26,7 +26,7 @@ class RestaurantTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-//imgName: String,
+    
     func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int) {
         if let imgurl = URL(string: imgName) {
             DispatchQueue.main.async {
@@ -40,7 +40,6 @@ class RestaurantTableViewCell: UITableViewCell {
                 }
             }
         }
-        print(imgName)
         RestaurantName.text = RestaurantNames
         RestaurantAddress.text = RestaurantVicinity
         RestaurantDistance.text = String(format: "%.3f",RestaurantDis) + "km away"
