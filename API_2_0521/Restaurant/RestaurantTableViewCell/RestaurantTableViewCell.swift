@@ -28,7 +28,18 @@ class RestaurantTableViewCell: UITableViewCell {
     }
 //imgName: String,
     func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int) {
-        RestaurantImage.image = UIImage(contentsOfFile: imgName)
+        if let imgurl = URL(string: imgName) {
+            DispatchQueue.main.async {
+                do{
+                    let imgData = try Data(contentsOf: imgurl)
+                    let newimg = UIImage(data: imgData)
+                    self.RestaurantImage.image = newimg
+                }
+                catch{
+                    print(error.localizedDescription)
+                }
+            }
+        }
         print(imgName)
         RestaurantName.text = RestaurantNames
         RestaurantAddress.text = RestaurantVicinity
