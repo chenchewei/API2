@@ -106,7 +106,7 @@
                                         <rect key="frame" x="207" y="0.0" width="207" height="30"/>
                                         <state key="normal" title="Timatable"/>
                                         <connections>
-                                            <action selector="CheckText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vem-00-W6g"/>
+                                            <action selector="TimeTableBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BUF-QN-IBj"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -178,7 +178,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iwc-kk-mCe">
-                                <rect key="frame" x="20" y="146" width="374" height="636"/>
+                                <rect key="frame" x="20" y="64" width="374" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KKq-t8-mVZ">
@@ -195,27 +195,13 @@
                                     <outlet property="delegate" destination="YFX-a2-fVu" id="Vyd-uS-d58"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" text="" placeholder="Type THSR stations or locations" translatesAutoresizingMaskIntoConstraints="NO" id="ur4-vt-8DL">
-                                <rect key="frame" x="0.0" y="65" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                                <connections>
-                                    <outlet property="delegate" destination="YFX-a2-fVu" id="RV9-F1-roW"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BNO-Bp-CRi" firstAttribute="trailing" secondItem="Iwc-kk-mCe" secondAttribute="trailing" constant="20" id="2fC-Nx-WwF"/>
-                            <constraint firstItem="ur4-vt-8DL" firstAttribute="trailing" secondItem="BNO-Bp-CRi" secondAttribute="trailing" id="9j6-Y6-Omf"/>
                             <constraint firstItem="BNO-Bp-CRi" firstAttribute="bottom" secondItem="Iwc-kk-mCe" secondAttribute="bottom" constant="31" id="GIB-gG-m2Y"/>
-                            <constraint firstItem="ur4-vt-8DL" firstAttribute="top" secondItem="BNO-Bp-CRi" secondAttribute="top" constant="21" id="T4S-ic-OYw"/>
-                            <constraint firstItem="ur4-vt-8DL" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" id="hAZ-9T-fyz"/>
-                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="ur4-vt-8DL" secondAttribute="bottom" constant="25" id="xB3-Kd-7EO"/>
+                            <constraint firstItem="Iwc-kk-mCe" firstAttribute="top" secondItem="BNO-Bp-CRi" secondAttribute="top" constant="20" id="wC2-K0-bgN"/>
                             <constraint firstItem="Iwc-kk-mCe" firstAttribute="leading" secondItem="BNO-Bp-CRi" secondAttribute="leading" constant="20" id="zBi-ZW-f0K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BNO-Bp-CRi"/>

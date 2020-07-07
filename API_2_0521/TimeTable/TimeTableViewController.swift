@@ -52,6 +52,9 @@ class TimeTableViewController: UIViewController {
         StartStation.text = StartName
         DestStation.text = DesName
         TableViewCellInit()
+        
+        
+        
     }
 
     func TableViewCellInit() {
@@ -94,25 +97,25 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
         URLSession.shared.dataTask(with: request){ data, response,error in do {
-            var TempList = [TrainsDetail]()
+            self.TrainList.removeAll()
             self.TrainData = try JSONDecoder().decode([Trains].self, from: data!)
             for j in 0..<self.TrainData[0].StopTimes.count {
                 let train = TrainsDetail()
                 train.StationName = self.TrainData[0].StopTimes[j].StationName?.Zh_tw ?? ""
                 train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime
-                TempList.append(train)
-                self.TrainList = TempList
-                }
+                self.TrainList.append(train)
             }
+            DispatchQueue.main.async {  // Wait until datas received
+                DetailVC.TrainList = self.TrainList
+                DetailVC.StartStation = self.StartName
+                DetailVC.DestinationStation = self.DesName
+                self.navigationController?.pushViewController(DetailVC, animated: true)
+            }
+        }
         catch{
             print(error.localizedDescription)
             }
         }.resume()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
-            DetailVC.TrainList = self.TrainList
-            DetailVC.StartStation = self.StartName
-            DetailVC.DestinationStation = self.DesName
-            self.navigationController?.pushViewController(DetailVC, animated: true)
-        }
-        }
+       
+    }
 }

@@ -13,7 +13,7 @@ import Foundation
 import CommonCrypto
 
 /********************** PTX Auth key from sample code ******************************/
-enum CryptoAlgorithm {  //列舉
+enum CryptoAlgorithm {  // 列舉
     case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
     
     var HMACAlgorithm: CCHmacAlgorithm {
@@ -68,7 +68,7 @@ let signDate = "x-date: " + xdate;
 let base64HmacStr = signDate.hmac(algorithm: .SHA1, key: APP_KEY)
 let authorization:String = "hmac username=\""+APP_ID+"\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\""+base64HmacStr+"\""
 /*******************************************************************************/
-/* API datas*/
+/* API datas */
 public class Station {
     var StationName = ""
     var StationAddress = ""
@@ -83,7 +83,7 @@ public class StationReturnValue {
     var ReturnFlag = false
 }
 
-class ViewController: UIViewController,MKMapViewDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet var StartingPoint: UITextField!
     @IBOutlet var Destination: UITextField!
@@ -96,6 +96,9 @@ class ViewController: UIViewController,MKMapViewDelegate {
     var TimeTableStartID = ""
     var TimeTableDesID = ""
     
+//    var startStation:PTX? = nil
+//    var endStation:PTX? = nil
+    
     /* THSR */
     var THSRdata = [THSRModel]()
     var TimeTableList = [THSRDetail]()
@@ -103,12 +106,15 @@ class ViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
-        mapView.delegate = self
+        mapViewInit()
         StationRE = StationReturnValue()
+        /* Prevent users from misclicking */
+        StartingPoint.isUserInteractionEnabled = false
+        Destination.isUserInteractionEnabled = false
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        ReturnValueActions()
+        ReturnValueActions()    // Actions after poplast from StationVC
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let StationVC = segue.destination as! StationViewController
@@ -116,6 +122,11 @@ class ViewController: UIViewController,MKMapViewDelegate {
         StationVC.delegate = self
     }
 
+    func mapViewInit() {
+        mapView.delegate = self
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "annView")
+    }
+    
     /* Environments set up */
     func getDataFromAPI() {
         let url = URL(string: APIUrl)
@@ -141,12 +152,16 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2DMake(StationList[i].StationPositionLat, StationList[i].StationPositionLon)
                 annotation.title = StationList[i].StationName
-                annotation.subtitle = StationList[i].StationID  //StationAddress
-                self.mapView.addAnnotation(annotation)
+                annotation.subtitle = StationList[i].StationID  // StationAddress
+                
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotation(annotation)
                 }
+                
             }
+        }
         catch {
-            print(error)
+            print(error.localizedDescription)
             }
         }
         task.resume()
@@ -159,6 +174,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
             ViewController.location?.requestWhenInUseAuthorization()
             ViewController.location?.startUpdatingLocation()
         }
+/* WARNING User location 也變成MarkView */
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
    /* Switch Text */
@@ -169,44 +185,26 @@ class ViewController: UIViewController,MKMapViewDelegate {
             Destination.text = temp
         }
         else{
-            view.makeToast("Starting point and destination should be different.")
+            if(StartingPoint.text == Destination.text){
+                if(StartingPoint.text == "") {
+                    view.makeToast("Starting point and destination cannot be blank.")
+                }
+            }
         }
     }
-    /* Tap and show alert view */
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
-        let ann = view.annotation?.title
-        let SelectedID = view.annotation?.subtitle
-        
-        let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
-        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
-            self.StartingPoint.text = ann!!
-            self.TimeTableStartID = SelectedID!!})
-        let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
-            self.Destination.text = ann!!
-            self.TimeTableDesID = SelectedID!!
-            self.getTHSRDatas()
-        })
-        let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action) in
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
-            RestaurantVC.PinLat = view.annotation?.coordinate.latitude ?? 0.0
-            RestaurantVC.PinLng = view.annotation?.coordinate.longitude ?? 0.0
-            
-            self.navigationController?.pushViewController(RestaurantVC, animated: true)})
-        let CancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alertController.addAction(StartAction)
-        alertController.addAction(DestAction)
-        alertController.addAction(RestAction)
-        alertController.addAction(CancelAction)
-        present(alertController, animated: true)
-    }
-    /* Making sure station texts arent blank before segue */
-    @IBAction func CheckText(_ sender: Any) {
+    
+    /* Making sure station texts aren't empty before pushVC */
+    @IBAction func TimeTableBtnClicked(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
-            view.makeToast("Starting point and destination should be different.")
+            if(StartingPoint.text == "") {
+                view.makeToast("Starting point and destination cannot be blank.")
+            }
+            else {
+                view.makeToast("Starting point and destination should be different.")
+            }
         }
         else if(StartingPoint.text == "" || Destination.text == ""){
-            view.makeToast("Starting point and destination cannot be blank.")
+            view.makeToast("Neither starting point nor destination can be blank.")
         }
         else{
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -221,8 +219,8 @@ class ViewController: UIViewController,MKMapViewDelegate {
         }
     }
     func getTHSRDatas() {
-        let Todaydate : String = getTime();
-        let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+Todaydate+"?$top=30&$format=JSON"
+        let TodayDate : String = getFormattedTime();
+        let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+TodayDate+"?$top=30&$format=JSON"
         let url = URL(string: TimeTableURL)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")
@@ -238,20 +236,20 @@ class ViewController: UIViewController,MKMapViewDelegate {
                 }
                 else{
                     timeTable.Direction = "北上"
-                    }
+                }
                 timeTable.TrainNo = self.THSRdata[i].DailyTrainInfo?.TrainNo ?? ""
                 timeTable.DepartureTime = self.THSRdata[i].OriginStopTime?.ArrivalTime ?? ""
                 timeTable.ArrivalTime = self.THSRdata[i].DestinationStopTime?.ArrivalTime ?? ""
                 TempList.append(timeTable)
                 self.TimeTableList = TempList
-                }
             }
+        }
         catch {
             print(error.localizedDescription)
-            }
+        }
         }.resume()
     }
-    func getTime() -> String {
+    func getFormattedTime() -> String {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         return dateFormater.string(from: Date())
@@ -264,7 +262,7 @@ class ViewController: UIViewController,MKMapViewDelegate {
         StationVC.delegate = self
         self.navigationController?.pushViewController(StationVC, animated: true)
     }
-    /* Return values */
+    /* Return the chosen station and set mapview region */
     func ReturnValueActions() {
         if(StationRE.ReturnFlag){
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -279,5 +277,46 @@ class ViewController: UIViewController,MKMapViewDelegate {
 extension ViewController: StationReturnDelegate {
     func sendStationCoordinates(sentData: StationReturnValue){
         StationRE = sentData
+    }
+}
+
+extension ViewController:  MKMapViewDelegate{
+      
+        
+    
+    /* Tap and show alert view */
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+        let ann = view.annotation?.title
+        let SelectedID = view.annotation?.subtitle
+        
+        let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
+        let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
+            self.StartingPoint.text = ann!!
+            self.TimeTableStartID = SelectedID!!})
+        let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
+            self.Destination.text = ann!!
+            self.TimeTableDesID = SelectedID!!
+            self.getTHSRDatas()
+        })
+        let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action)in
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let RestaurantVC = storyboard.instantiateViewController(withIdentifier:"Restaurant") as! RestaurantViewController
+            RestaurantVC.PinLat = view.annotation?.coordinate.latitude ?? 0.0
+            RestaurantVC.PinLng = view.annotation?.coordinate.longitude ?? 0.0
+            self.navigationController?.pushViewController(RestaurantVC, animated: true
+        )})
+        let CancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alertController.addAction(StartAction)
+        alertController.addAction(DestAction)
+        alertController.addAction(RestAction)
+        alertController.addAction(CancelAction)
+        present(alertController, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annView = mapView.dequeueReusableAnnotationView(withIdentifier: "annView", for: annotation) as! MKMarkerAnnotationView
+        annView.clusteringIdentifier = nil
+        annView.displayPriority = .required
+        return annView
     }
 }

@@ -27,6 +27,9 @@ class TimeTableTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setCell(Direction:String,TrainNo:String,Arrival:String,Departure:String,Duration:String) {
+        
+        
+        
         DirectionLabel.text = Direction
         TrainNoLabel.text = TrainNo
         ArrivalLabel.text = Arrival

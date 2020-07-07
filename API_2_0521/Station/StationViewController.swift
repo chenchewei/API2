@@ -15,7 +15,7 @@ protocol StationReturnDelegate {
 class StationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet var StationTable: UITableView!
-    /* Search bar settings*/
+    // Search bar settings 
     var searchController: UISearchController!
     var StationList = [Station]()
     var searchingList = [Station]()
@@ -39,7 +39,14 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
 /* Main */
-    /* Search and filter stations*/
+    /* Search and filter stations */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionTitle = "下拉以搜尋站點或站點地址"
+        return sectionTitle
+    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if(searchText == ""){
             searchingList = StationList
@@ -58,8 +65,8 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = StationTable.dequeueReusableCell(withIdentifier: "reuseCell")
         cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "reuseCell")
-        cell?.textLabel?.text = StationList[indexPath.row].StationName
-        cell?.detailTextLabel?.text = StationList[indexPath.row].StationAddress
+        cell?.textLabel?.text = searchingList[indexPath.row].StationName
+        cell?.detailTextLabel?.text = searchingList[indexPath.row].StationAddress
         return cell!
     }
     /* Selected and jumped back(ongoing)*/
@@ -71,7 +78,6 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationRE.ReturnFlag = true
 
         delegate?.sendStationCoordinates(sentData: StationRE)
-        
         navigationController?.popViewController(animated: true)
     }
     
