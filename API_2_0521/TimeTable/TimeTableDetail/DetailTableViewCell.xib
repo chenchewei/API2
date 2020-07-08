@@ -17,16 +17,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUF-4F-CAK">
-                        <rect key="frame" x="0.0" y="0.0" width="316" height="98"/>
+                        <rect key="frame" x="0.0" y="10" width="316" height="78"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJb-gJ-3uz">
-                                <rect key="frame" x="0.0" y="0.0" width="158" height="98"/>
+                                <rect key="frame" x="0.0" y="0.0" width="158" height="78"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGM-Hx-OdV">
-                                <rect key="frame" x="158" y="0.0" width="158" height="98"/>
+                                <rect key="frame" x="158" y="0.0" width="158" height="78"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,9 +39,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="GUF-4F-CAK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="30G-mv-ReL"/>
-                    <constraint firstItem="GUF-4F-CAK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DdU-5N-nYD"/>
+                    <constraint firstItem="GUF-4F-CAK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Gmx-qA-b5v"/>
+                    <constraint firstAttribute="bottom" secondItem="GUF-4F-CAK" secondAttribute="bottom" constant="10" id="QZR-bo-e7J"/>
+                    <constraint firstItem="GUF-4F-CAK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TVE-4c-1gV"/>
                     <constraint firstAttribute="trailing" secondItem="GUF-4F-CAK" secondAttribute="trailing" id="b7l-yH-oOB"/>
-                    <constraint firstAttribute="bottom" secondItem="GUF-4F-CAK" secondAttribute="bottom" id="d6Y-8N-d5M"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

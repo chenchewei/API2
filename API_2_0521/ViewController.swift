@@ -174,7 +174,6 @@ class ViewController: UIViewController {
             ViewController.location?.requestWhenInUseAuthorization()
             ViewController.location?.startUpdatingLocation()
         }
-/* WARNING User location 也變成MarkView */
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
    /* Switch Text */
@@ -193,7 +192,7 @@ class ViewController: UIViewController {
         }
     }
     
-    /* Making sure station texts aren't empty before pushVC */
+    /* Making sure station texts aren't empty before pushVC and jump after datas received */
     @IBAction func TimeTableBtnClicked(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
             if(StartingPoint.text == "") {
@@ -207,17 +206,12 @@ class ViewController: UIViewController {
             view.makeToast("Neither starting point nor destination can be blank.")
         }
         else{
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
-            
-            TimeTableVC.StartName = StartingPoint.text ?? ""
-            TimeTableVC.DesName = Destination.text ?? ""
-            TimeTableVC.xdate = xdate
-            TimeTableVC.authorization = authorization
-            TimeTableVC.TimeTableList = TimeTableList
-            self.navigationController?.pushViewController(TimeTableVC, animated: true)
+            DispatchQueue.main.async {
+                self.getTHSRDatas()
+            }
         }
     }
+    /* Request THSR API datas */
     func getTHSRDatas() {
         let TodayDate : String = getFormattedTime();
         let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+TodayDate+"?$top=30&$format=JSON"
@@ -243,11 +237,24 @@ class ViewController: UIViewController {
                 TempList.append(timeTable)
                 self.TimeTableList = TempList
             }
+            /* Jump to TimeTableVC */
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                let TimeTableVC = storyboard.instantiateViewController(withIdentifier:"Timetable") as! TimeTableViewController
+                
+                TimeTableVC.StartName = self.StartingPoint.text ?? ""
+                TimeTableVC.DesName = self.Destination.text ?? ""
+                TimeTableVC.xdate = xdate
+                TimeTableVC.authorization = authorization
+                TimeTableVC.TimeTableList = self.TimeTableList
+                self.navigationController?.pushViewController(TimeTableVC, animated: true)
+            }
         }
         catch {
             print(error.localizedDescription)
-        }
+            }
         }.resume()
+        
     }
     func getFormattedTime() -> String {
         let dateFormater = DateFormatter()
@@ -286,6 +293,13 @@ extension ViewController:  MKMapViewDelegate{
     
     /* Tap and show alert view */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+        
+                
+        if view.annotation?.isKind(of:MKUserLocation.self) ?? true {
+            return
+        }
+        
+        
         let ann = view.annotation?.title
         let SelectedID = view.annotation?.subtitle
         
@@ -296,7 +310,6 @@ extension ViewController:  MKMapViewDelegate{
         let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
             self.Destination.text = ann!!
             self.TimeTableDesID = SelectedID!!
-            self.getTHSRDatas()
         })
         let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action)in
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -314,6 +327,12 @@ extension ViewController:  MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+                
+        if annotation.isKind(of:MKUserLocation.self) {
+            return nil
+        }
+        
         let annView = mapView.dequeueReusableAnnotationView(withIdentifier: "annView", for: annotation) as! MKMarkerAnnotationView
         annView.clusteringIdentifier = nil
         annView.displayPriority = .required

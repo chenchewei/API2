@@ -51,17 +51,34 @@ class TimeTableViewController: UIViewController {
         super.viewDidLoad()
         StartStation.text = StartName
         DestStation.text = DesName
-        TableViewCellInit()
-        
-        
-        
+        TableViewInit()
+
     }
 
-    func TableViewCellInit() {
+    func TableViewInit() {
         let cellNib = UINib(nibName: "TimeTableTableViewCell", bundle: nil)
         TrainTable.register(cellNib, forCellReuseIdentifier: "TimeTableTableViewCell")
-        TrainTable.rowHeight = 55
-        TrainTable.estimatedRowHeight = 0
+        TimeTableListSort()
+    }
+    
+    func TimeTableListSort() {
+        //        let dateFormatter = DateFormatter()
+        //        dateFormatter.dateFormat = "HH:mm"
+        TimeTableList.sort { (data1, data2) -> Bool in
+        //            print(data1.DepartureTime,"---",data2.DepartureTime)
+        //            guard let date1 = dateFormatter.date(from: data1.DepartureTime) else {print("ordered failed", data1.DepartureTime); return false}
+        //            guard let date2 = dateFormatter.date(from: data2.DepartureTime) else {print("ordered failed",data2.DepartureTime); return false}
+        //            let result =  date1.compare(date2)
+        let result =  data1.DepartureTime.compare(data2.DepartureTime)
+        switch result {
+            case .orderedAscending:
+//                print("ordered Ascending")
+                return true
+            default:
+//                print("Sorted default")
+                return false
+            }
+        }
     }
 }
 /* Setup TimeTable Table values */
@@ -71,6 +88,7 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = TrainTable.dequeueReusableCell(withIdentifier: "TimeTableTableViewCell", for: indexPath) as! TimeTableTableViewCell
+        
         let Direction = TimeTableList[indexPath.row].Direction
         let TrainNo = TimeTableList[indexPath.row].TrainNo
         let Arrival = TimeTableList[indexPath.row].DepartureTime
@@ -81,6 +99,8 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let Duration = (Int(ArrivalTimes[0])!-Int(DepartureTimes[0])!)*60 + (Int(ArrivalTimes[1])!-Int(DepartureTimes[1])!)
         cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure,Duration: String(Duration))
+        cell.backgroundColor = .systemGray5
+        
         return cell
     }
     

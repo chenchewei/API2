@@ -18,14 +18,10 @@ class TimeTableDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TableViewCellInit()
-
-        // Do any additional setup after loading the view.
     }
     func TableViewCellInit() {
         let cellNib = UINib(nibName: "DetailTableViewCell", bundle: nil)
         DetailTable.register(cellNib, forCellReuseIdentifier: "DetailTableViewCell")
-        DetailTable.rowHeight = 45
-        DetailTable.estimatedRowHeight = 0
     }
 }
 
@@ -38,8 +34,12 @@ extension TimeTableDetailViewController: UITableViewDelegate, UITableViewDataSou
         let StationName = TrainList[indexPath.row].StationName
         let DepartureTime = TrainList[indexPath.row].DepartureTime
         cell.setCell(Station:StationName,Time:DepartureTime)
+        // Set Background Color
         if(cell.StationLabel.text == StartStation || cell.StationLabel.text == DestinationStation){
-            cell.backgroundColor = UIColor.orange
+            cell.backgroundColor = .orange
+        }
+        else {
+            cell.backgroundColor = .systemGray5
         }
         return cell
     }
