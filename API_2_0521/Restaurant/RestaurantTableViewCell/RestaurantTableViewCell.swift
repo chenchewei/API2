@@ -42,8 +42,15 @@ class RestaurantTableViewCell: UITableViewCell {
         }
         RestaurantName.text = RestaurantNames
         RestaurantAddress.text = RestaurantVicinity
-        RestaurantDistance.text = String(format: "%.3f",RestaurantDis) + "km away"
-        RestaurantReputation.text = "Rating:"+String(RestaurantRating)+"("+String(RestaurantComments)+"comments)"
+        
+        if(RestaurantDis < 1) {
+            let RestaurantDisMeter = RestaurantDis*1000
+            RestaurantDistance.text = String(format: "%d", RestaurantDisMeter) + "m"
+        } else {
+            RestaurantDistance.text = String(format: "%.2f",RestaurantDis) + "km"
+        }
+        RestaurantReputation.text = "評價："+String(RestaurantRating)+"("+String(RestaurantComments)+" 則評論)"
+        RestaurantReputation.textColor = .darkGray
     }
  
 }

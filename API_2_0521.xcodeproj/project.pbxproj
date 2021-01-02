@@ -12,6 +12,10 @@
 		6C2CE1B3249F8E40000A2A27 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2CE1B1249F8E40000A2A27 /* RestaurantTableViewCell.swift */; };
 		6C2CE1B4249F8E40000A2A27 /* RestaurantTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C2CE1B2249F8E40000A2A27 /* RestaurantTableViewCell.xib */; };
 		6C35998C24A0F1A400CF3C35 /* THSR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35998B24A0F1A400CF3C35 /* THSR.swift */; };
+		6C4B62E425A04AC800A38A4C /* ChangeDistanceDialogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B62E225A04AC700A38A4C /* ChangeDistanceDialogVC.swift */; };
+		6C4B62E525A04AC800A38A4C /* ChangeDistanceDialogVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B62E325A04AC800A38A4C /* ChangeDistanceDialogVC.xib */; };
+		6C4B62E825A04DB800A38A4C /* DistanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B62E625A04DB800A38A4C /* DistanceTableViewCell.swift */; };
+		6C4B62E925A04DB800A38A4C /* DistanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B62E725A04DB800A38A4C /* DistanceTableViewCell.xib */; };
 		6C59A8C8247FE448003C7BAD /* StationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8C7247FE448003C7BAD /* StationViewController.swift */; };
 		6C59A8CB247FE46C003C7BAD /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */; };
 		6C59A8CD247FE7FB003C7BAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C59A8CC247FE7FB003C7BAD /* SceneDelegate.swift */; };
@@ -35,6 +39,10 @@
 		6C2CE1B1249F8E40000A2A27 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		6C2CE1B2249F8E40000A2A27 /* RestaurantTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantTableViewCell.xib; sourceTree = "<group>"; };
 		6C35998B24A0F1A400CF3C35 /* THSR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSR.swift; sourceTree = "<group>"; };
+		6C4B62E225A04AC700A38A4C /* ChangeDistanceDialogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDistanceDialogVC.swift; sourceTree = "<group>"; };
+		6C4B62E325A04AC800A38A4C /* ChangeDistanceDialogVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeDistanceDialogVC.xib; sourceTree = "<group>"; };
+		6C4B62E625A04DB800A38A4C /* DistanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceTableViewCell.swift; sourceTree = "<group>"; };
+		6C4B62E725A04DB800A38A4C /* DistanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceTableViewCell.xib; sourceTree = "<group>"; };
 		6C59A8C7247FE448003C7BAD /* StationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewController.swift; sourceTree = "<group>"; };
 		6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		6C59A8CC247FE7FB003C7BAD /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +109,17 @@
 			path = RestaurantTableViewCell;
 			sourceTree = "<group>";
 		};
+		6C4B62E125A04A9E00A38A4C /* ChangeDistanceDialogVC */ = {
+			isa = PBXGroup;
+			children = (
+				6C4B62E225A04AC700A38A4C /* ChangeDistanceDialogVC.swift */,
+				6C4B62E325A04AC800A38A4C /* ChangeDistanceDialogVC.xib */,
+				6C4B62E625A04DB800A38A4C /* DistanceTableViewCell.swift */,
+				6C4B62E725A04DB800A38A4C /* DistanceTableViewCell.xib */,
+			);
+			path = ChangeDistanceDialogVC;
+			sourceTree = "<group>";
+		};
 		6C59A8C6247FE425003C7BAD /* Station */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +161,7 @@
 		6C95DBA22476BF8400A23607 /* API_2_0521 */ = {
 			isa = PBXGroup;
 			children = (
+				6C4B62E125A04A9E00A38A4C /* ChangeDistanceDialogVC */,
 				6C2CE1AE249F8D7B000A2A27 /* Restaurant */,
 				6C59A8C9247FE457003C7BAD /* TimeTable */,
 				6C59A8C6247FE425003C7BAD /* Station */,
@@ -227,7 +247,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4B62E925A04DB800A38A4C /* DistanceTableViewCell.xib in Resources */,
 				6C2CE1B4249F8E40000A2A27 /* RestaurantTableViewCell.xib in Resources */,
+				6C4B62E525A04AC800A38A4C /* ChangeDistanceDialogVC.xib in Resources */,
 				6C95DBB02476BF8500A23607 /* LaunchScreen.storyboard in Resources */,
 				6C95DBAD2476BF8500A23607 /* Assets.xcassets in Resources */,
 				6C95DBAB2476BF8400A23607 /* Main.storyboard in Resources */,
@@ -286,6 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C59A8CD247FE7FB003C7BAD /* SceneDelegate.swift in Sources */,
+				6C4B62E425A04AC800A38A4C /* ChangeDistanceDialogVC.swift in Sources */,
+				6C4B62E825A04DB800A38A4C /* DistanceTableViewCell.swift in Sources */,
 				6C9C6A2124A33EB500E12A2C /* TimeTableTableViewCell.swift in Sources */,
 				6C2CE1B0249F8DA6000A2A27 /* RestaurantViewController.swift in Sources */,
 				6C9C6A2524A37E7C00E12A2C /* DetailTableViewCell.swift in Sources */,
@@ -372,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -426,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

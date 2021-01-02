@@ -196,14 +196,16 @@ class ViewController: UIViewController {
     @IBAction func TimeTableBtnClicked(_ sender: Any) {
         if(StartingPoint.text == Destination.text){
             if(StartingPoint.text == "") {
-                view.makeToast("Starting point and destination cannot be blank.")
+                view.makeToast("請輸入起終點")
             }
             else {
-                view.makeToast("Starting point and destination should be different.")
+                view.makeToast("起終點應不同")
             }
         }
-        else if(StartingPoint.text == "" || Destination.text == ""){
-            view.makeToast("Neither starting point nor destination can be blank.")
+        else if(StartingPoint.text == ""){
+            view.makeToast("請輸入起點")
+        } else if(Destination.text == "") {
+            view.makeToast("請輸入終點")
         }
         else{
             DispatchQueue.main.async {
@@ -306,9 +308,11 @@ extension ViewController:  MKMapViewDelegate{
         let alertController = UIAlertController(title: "選擇動作", message: "", preferredStyle: .alert)
         let StartAction = UIAlertAction(title: "設成起點", style: .default,handler:{ (action) in
             self.StartingPoint.text = ann!!
+            self.StartingPoint.isUserInteractionEnabled = true
             self.TimeTableStartID = SelectedID!!})
         let DestAction = UIAlertAction(title: "設成終點", style: .default,handler:{ (action) in
             self.Destination.text = ann!!
+            self.Destination.isUserInteractionEnabled = true
             self.TimeTableDesID = SelectedID!!
         })
         let RestAction = UIAlertAction(title: "附近餐廳", style: .default,handler:{ (action)in

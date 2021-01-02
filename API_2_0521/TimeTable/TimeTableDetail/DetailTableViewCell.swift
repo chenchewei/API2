@@ -27,3 +27,4 @@ class DetailTableViewCell: UITableViewCell {
         TimeLabel.text = Time
     }
 }
+

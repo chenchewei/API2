@@ -47,8 +47,12 @@ class RestaurantViewController: UIViewController {
  
     @IBOutlet var RestaurantTable: UITableView!
     var RestaurantList = [Restaurant]()
+    @IBOutlet var loadingImg: UIActivityIndicatorView!
+    
     let RestURL = "https://api.bluenet-ride.com/v2_0/lineBot/restaurant/get"
     var RestaurantData : object?
+    var range: Int = 2000
+    
     /* Received datas from ViewController */
     var PinLat = Double()
     var PinLng = Double()
@@ -58,6 +62,10 @@ class RestaurantViewController: UIViewController {
         getRestaurantDatas()
         TableViewCellInit()
         // Do any additional setup after loading the view.
+        barItemInit()
+        self.RestaurantTable.isHidden = true
+        self.loadingImg.startAnimating()
+        self.loadingImg.isHidden = false
     }
     
     func TableViewCellInit() {
@@ -67,6 +75,18 @@ class RestaurantViewController: UIViewController {
         RestaurantTable.estimatedRowHeight = 0
     }
     
+    func barItemInit() {
+        let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let settingBarItem = UIBarButtonItem(frame: frame, imgName: "setting", target: self, action: #selector(changeDistance))
+        navigationItem.rightBarButtonItem = settingBarItem
+    }
+    
+    @objc func changeDistance() {
+        let VC = ChangeDistanceDialogVC(currentDis: range)
+        VC.delegate = self
+        VC.dialogShow(vc: self)
+    }
+    
     func getRestaurantDatas() {
         let data = DataModel()
         data.lastIndex = -1
@@ -74,7 +94,7 @@ class RestaurantViewController: UIViewController {
         data.type = [7]
         data.lat = PinLat
         data.lng = PinLng
-        data.range = "2000"
+        data.range = String(range)
         
         let jsonData = try? JSONEncoder().encode(data)
         let url = URL(string: RestURL)
@@ -86,6 +106,9 @@ class RestaurantViewController: UIViewController {
         let task = URLSession.shared.dataTask(with: request){ data, response,error in DispatchQueue.main.async {
             do {
                 self.RestaurantData = try JSONDecoder().decode(object.self, from: data!)
+                self.RestaurantTable.isHidden = false
+                self.loadingImg.stopAnimating()
+                self.loadingImg.isHidden = true
                 self.RestaurantTable.reloadData()
                 }
             catch {
@@ -117,5 +140,36 @@ extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
 
         cell.setCell(imgName: img!,RestaurantNames: RestNames!,RestaurantVicinity: RestAddr!,RestaurantDis: Float(RestDis), RestaurantRating: RestRating!,RestaurantComments:RestComments!)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+extension RestaurantViewController: ChangeDistanceDialogVCDelegate {
+    func passDistance(distance: Int) {
+        removePresented {
+            [weak self] in
+            guard let self = self else { return }
+            self.range = distance
+            self.getRestaurantDatas()
+            self.loadingImg.isHidden = false
+            self.loadingImg.startAnimating()
+        }
+        
+    }
+    
+    
+}
+extension UIBarButtonItem {
+    convenience init(frame: CGRect, imgName: String, target: Any?, action: Selector) {
+        let btn = UIButton(frame: frame)
+        btn.addTarget(target, action: action, for: .touchUpInside)
+        btn.setImage(UIImage(named: imgName), for: .normal)
+        let barView = UIView(frame: frame)
+        barView.addSubview(btn)
+        self.init(customView: barView)
+        
+        
     }
 }

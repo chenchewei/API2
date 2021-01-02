@@ -52,7 +52,7 @@ class TimeTableViewController: UIViewController {
         StartStation.text = StartName
         DestStation.text = DesName
         TableViewInit()
-
+        navigationController?.title = "時刻表"
     }
 
     func TableViewInit() {
@@ -99,7 +99,7 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let Duration = (Int(ArrivalTimes[0])!-Int(DepartureTimes[0])!)*60 + (Int(ArrivalTimes[1])!-Int(DepartureTimes[1])!)
         cell.setCell(Direction: Direction, TrainNo: TrainNo, Arrival: Arrival, Departure: Departure,Duration: String(Duration))
-        cell.backgroundColor = .systemGray5
+        cell.backgroundColor = UIColor(hexStr: "#ECF5FF")
         
         return cell
     }
