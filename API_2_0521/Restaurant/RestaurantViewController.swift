@@ -48,6 +48,7 @@ class RestaurantViewController: UIViewController {
     @IBOutlet var RestaurantTable: UITableView!
     var RestaurantList = [Restaurant]()
     @IBOutlet var loadingImg: UIActivityIndicatorView!
+    @IBOutlet var view_noRecord: UIView!
     
     let RestURL = "https://api.bluenet-ride.com/v2_0/lineBot/restaurant/get"
     var RestaurantData : object?
@@ -66,6 +67,7 @@ class RestaurantViewController: UIViewController {
         self.RestaurantTable.isHidden = true
         self.loadingImg.startAnimating()
         self.loadingImg.isHidden = false
+        title = "附近餐廳"
     }
     
     func TableViewCellInit() {
@@ -96,6 +98,16 @@ class RestaurantViewController: UIViewController {
         data.lng = PinLng
         data.range = String(range)
         
+        print("PinLat \(PinLat)")
+        print("PinLng \(PinLng)")
+        
+        if(PinLat == 23.874326705932617 && PinLng == 120.5746078491211) {
+            self.view_noRecord.isHidden = false
+            self.RestaurantTable.isHidden = true
+            self.loadingImg.isHidden = true
+            return
+        }
+        
         let jsonData = try? JSONEncoder().encode(data)
         let url = URL(string: RestURL)
         var request = URLRequest(url: url!)
@@ -112,7 +124,9 @@ class RestaurantViewController: UIViewController {
                 self.RestaurantTable.reloadData()
                 }
             catch {
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                     self.view.makeToast(error.localizedDescription)
+                }
                 }
             }
         }
@@ -144,6 +158,14 @@ extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let endLat = RestaurantData?.results.content[indexPath.row].lat ?? 0.0
+        let endLng = RestaurantData?.results.content[indexPath.row].lng ?? 0.0
+        
+        let url = "http://maps.google.com/maps?f=d&saddr=\(self.PinLat)%20\(self.PinLng)&daddr=\(endLat)%20\(endLng)&hl=en"
+        if let url = URL(string: url) {
+            UIApplication.shared.open(url)
+        }
+        
     }
 }
 extension RestaurantViewController: ChangeDistanceDialogVCDelegate {

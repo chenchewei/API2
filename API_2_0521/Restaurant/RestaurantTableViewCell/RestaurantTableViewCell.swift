@@ -45,9 +45,9 @@ class RestaurantTableViewCell: UITableViewCell {
         
         if(RestaurantDis < 1) {
             let RestaurantDisMeter = RestaurantDis*1000
-            RestaurantDistance.text = String(format: "%d", RestaurantDisMeter) + "m"
+            RestaurantDistance.text = "直線距離：" + String(format: "%.0f", RestaurantDisMeter) + "m"
         } else {
-            RestaurantDistance.text = String(format: "%.2f",RestaurantDis) + "km"
+            RestaurantDistance.text = "直線距離：" + String(format: "%.2f",RestaurantDis) + "km"
         }
         RestaurantReputation.text = "評價："+String(RestaurantRating)+"("+String(RestaurantComments)+" 則評論)"
         RestaurantReputation.textColor = .darkGray

@@ -161,7 +161,10 @@ class ViewController: UIViewController {
             }
         }
         catch {
-            print(error.localizedDescription)
+            DispatchQueue.main.async {
+                 debugPrint(error)
+            }
+            
             }
         }
         task.resume()
@@ -182,6 +185,11 @@ class ViewController: UIViewController {
             let temp = StartingPoint.text
             StartingPoint.text = Destination.text
             Destination.text = temp
+            
+            let temp2 = TimeTableStartID
+            TimeTableStartID = TimeTableDesID
+            TimeTableDesID = temp2
+            
         }
         else{
             if(StartingPoint.text == Destination.text){
@@ -216,7 +224,7 @@ class ViewController: UIViewController {
     /* Request THSR API datas */
     func getTHSRDatas() {
         let TodayDate : String = getFormattedTime();
-        let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/"+TimeTableStartID+"/to/"+TimeTableDesID+"/"+TodayDate+"?$top=30&$format=JSON"
+        let TimeTableURL = "https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/\(TimeTableStartID)/to/\(TimeTableDesID)/\(TodayDate)?$top=30&$format=JSON"
         let url = URL(string: TimeTableURL)
         var request = URLRequest(url: url!)
         request.setValue(xdate, forHTTPHeaderField: "x-date")

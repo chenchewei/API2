@@ -18,6 +18,7 @@ class TimeTableDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TableViewCellInit()
+        title = "詳細資訊"
     }
     func TableViewCellInit() {
         let cellNib = UINib(nibName: "DetailTableViewCell", bundle: nil)
@@ -42,6 +43,9 @@ extension TimeTableDetailViewController: UITableViewDelegate, UITableViewDataSou
             cell.backgroundColor = UIColor(hexStr: "#E0E0E0")
         }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 extension UIColor {

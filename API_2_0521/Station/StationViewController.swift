@@ -30,7 +30,8 @@ class StationViewController: UIViewController, UITableViewDelegate, UITableViewD
         StationTable.delegate = self
         StationTable.dataSource = self
         searchingList = StationList
-        StationRE = StationReturnValue()        
+        StationRE = StationReturnValue()
+        title = "高鐵站點查詢"
     }
     override func viewWillAppear(_ animated: Bool) {
         searchController = UISearchController(searchResultsController: nil)

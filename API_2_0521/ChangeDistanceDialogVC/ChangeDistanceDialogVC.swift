@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Toast
 
 protocol ChangeDistanceDialogVCDelegate: class {
     func passDistance(distance: Int)

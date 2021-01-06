@@ -13,7 +13,7 @@ struct Trains: Codable {
 }
 struct StopTimes : Codable {
     var StationName : StationName?
-    var DepartureTime : String
+    var DepartureTime : String?
 }
 struct StationName : Codable {
     var Zh_tw : String?
@@ -52,7 +52,8 @@ class TimeTableViewController: UIViewController {
         StartStation.text = StartName
         DestStation.text = DesName
         TableViewInit()
-        navigationController?.title = "時刻表"
+        barItemInit()
+        title = "時刻表"
     }
 
     func TableViewInit() {
@@ -60,6 +61,20 @@ class TimeTableViewController: UIViewController {
         TrainTable.register(cellNib, forCellReuseIdentifier: "TimeTableTableViewCell")
         TimeTableListSort()
     }
+    
+    func barItemInit() {
+        let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let settingBarItem = UIBarButtonItem(frame: frame, imgName: "booking", target: self, action: #selector(bookingBtnClicked))
+        navigationItem.rightBarButtonItem = settingBarItem
+    }
+    
+    @objc func bookingBtnClicked() {
+        if let url = URL(string: "https://irs.thsrc.com.tw/IMINT/?locale=tw") {
+            UIApplication.shared.open(url)
+        }
+    }
+        
+    
     
     func TimeTableListSort() {
         //        let dateFormatter = DateFormatter()
@@ -122,7 +137,7 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
             for j in 0..<self.TrainData[0].StopTimes.count {
                 let train = TrainsDetail()
                 train.StationName = self.TrainData[0].StopTimes[j].StationName?.Zh_tw ?? ""
-                train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime
+                train.DepartureTime = self.TrainData[0].StopTimes[j].DepartureTime ?? "終點站"
                 self.TrainList.append(train)
             }
             DispatchQueue.main.async {  // Wait until datas received
@@ -133,7 +148,9 @@ extension TimeTableViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         catch{
-            print(error.localizedDescription)
+            DispatchQueue.main.async {
+                 self.view.makeToast(error.localizedDescription)
+            }
             }
         }.resume()
        
