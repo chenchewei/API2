@@ -51,7 +51,7 @@
 		6C59A8CA247FE46C003C7BAD /* TimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		6C59A8CC247FE7FB003C7BAD /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6C8B9CE824839A6B003F62F8 /* TimeTableDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableDetailViewController.swift; sourceTree = "<group>"; };
-		6C95DBA02476BF8400A23607 /* API_2_0521.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = API_2_0521.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C95DBA02476BF8400A23607 /* THSR餐廳推薦.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "THSR餐廳推薦.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C95DBA32476BF8400A23607 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C95DBA72476BF8400A23607 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6C95DBAA2476BF8400A23607 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		6C95DBA12476BF8400A23607 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C95DBA02476BF8400A23607 /* API_2_0521.app */,
+				6C95DBA02476BF8400A23607 /* THSR餐廳推薦.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 			);
 			name = API_2_0521;
 			productName = API_2_0521;
-			productReference = 6C95DBA02476BF8400A23607 /* API_2_0521.app */;
+			productReference = 6C95DBA02476BF8400A23607 /* THSR餐廳推薦.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -490,9 +490,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ChenCheWei.API-2-0521";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "THSR餐廳推薦";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -510,9 +510,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ChenCheWei.API-2-0521";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "THSR餐廳推薦";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

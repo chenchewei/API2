@@ -108,6 +108,10 @@
                                 <rect key="frame" x="97" y="112" width="274" height="32.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="killKeyboard:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="w8B-wN-KF7"/>
+                                    <action selector="valueChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="TY8-1H-Zxl"/>
+                                </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJh-X2-XCa">
                                 <rect key="frame" x="0.0" y="263" width="414" height="599"/>
@@ -150,6 +154,10 @@
                                 <rect key="frame" x="97" y="162" width="274" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="DesValueChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="m4W-IH-29v"/>
+                                    <action selector="killKeyboard:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="ZwW-d2-oAt"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="ME" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNX-Jb-wkh">
                                 <rect key="frame" x="299" y="819" width="113" height="13"/>

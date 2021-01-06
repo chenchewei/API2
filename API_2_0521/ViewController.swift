@@ -109,8 +109,8 @@ class ViewController: UIViewController {
         mapViewInit()
         StationRE = StationReturnValue()
         /* Prevent users from misclicking */
-        StartingPoint.isUserInteractionEnabled = false
-        Destination.isUserInteractionEnabled = false
+//        StartingPoint.isUserInteractionEnabled = false
+//        Destination.isUserInteractionEnabled = false
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -202,20 +202,38 @@ class ViewController: UIViewController {
     
     /* Making sure station texts aren't empty before pushVC and jump after datas received */
     @IBAction func TimeTableBtnClicked(_ sender: Any) {
-        if(StartingPoint.text == Destination.text){
-            if(StartingPoint.text == "") {
+        view.endEditing(true)
+        guard let startStr = StartingPoint.text else { return }
+        guard let desStr = Destination.text else { return }
+        var stationNameArr = [String]()
+
+        for(_ , data) in StationData.enumerated() {
+            stationNameArr.append(data.StationName?.Zh_tw ?? "")
+        }
+        
+        
+        if(startStr == desStr){
+            if(startStr == "") {
                 view.makeToast("請輸入起終點")
             }
             else {
                 view.makeToast("起終點應不同")
             }
         }
-        else if(StartingPoint.text == ""){
+        else if(startStr == ""){
             view.makeToast("請輸入起點")
-        } else if(Destination.text == "") {
+        } else if(desStr == "") {
             view.makeToast("請輸入終點")
-        }
-        else{
+        } else if(!stationNameArr.contains(startStr)) {
+            view.makeToast("站點格式錯誤")
+            TimeTableStartID = ""
+            StartingPoint.text = ""
+            
+        } else if(!stationNameArr.contains(desStr)) {
+            view.makeToast("站點格式錯誤")
+            TimeTableDesID = ""
+            Destination.text = ""
+        } else {
             DispatchQueue.main.async {
                 self.getTHSRDatas()
             }
@@ -273,6 +291,7 @@ class ViewController: UIViewController {
     }
     /* Jump to StationViewController */
     @IBAction func StationClicked(_ sender: Any) {
+        view.endEditing(true)
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let StationVC = storyboard.instantiateViewController(withIdentifier:"Station") as! StationViewController
         StationVC.StationList = SearchList
@@ -289,6 +308,29 @@ class ViewController: UIViewController {
             StationRE.ReturnFlag = false
         }
     }
+    
+    @IBAction func killKeyboard(_ sender: Any) {
+    }
+    
+    @IBAction func valueChanged(_ sender: UITextField) {
+        if(sender.text?.count == 0) { return }
+        for i in 0..<StationData.count {
+            if(sender.text == StationData[i].StationName?.Zh_tw) {
+                TimeTableStartID = StationData[i].StationID
+            }
+        }
+    }
+    
+    @IBAction func DesValueChange(_ sender: UITextField) {
+        if(sender.text?.count == 0) { return }
+        for i in 0..<StationData.count {
+            if(sender.text == StationData[i].StationName?.Zh_tw) {
+                TimeTableDesID = StationData[i].StationID
+            }
+        }
+    }
+    
+    
 }
 
 extension ViewController: StationReturnDelegate {
@@ -352,6 +394,3 @@ extension ViewController:  MKMapViewDelegate{
     }
 }
 
-extension ViewController: UITextFieldDelegate {
-    
-}
