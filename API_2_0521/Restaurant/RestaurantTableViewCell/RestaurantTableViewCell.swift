@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class RestaurantTableViewCell: UITableViewCell {
 
@@ -28,18 +29,8 @@ class RestaurantTableViewCell: UITableViewCell {
     }
     
     func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int) {
-        if let imgurl = URL(string: imgName) {
-            DispatchQueue.main.async {
-                do{
-                    let imgData = try Data(contentsOf: imgurl)
-                    let newimg = UIImage(data: imgData)
-                    self.RestaurantImage.image = newimg
-                }
-                catch{
-                    print(error.localizedDescription)
-                }
-            }
-        }
+        let imgurl = URL(string: imgName)
+        RestaurantImage.sd_setImage(with: imgurl, placeholderImage: UIImage(named: "feast"))
         RestaurantName.text = RestaurantNames
         RestaurantAddress.text = RestaurantVicinity
         
@@ -51,6 +42,18 @@ class RestaurantTableViewCell: UITableViewCell {
         }
         RestaurantReputation.text = "評價："+String(RestaurantRating)+"("+String(RestaurantComments)+" 則評論)"
         RestaurantReputation.textColor = .darkGray
+    }
+    
+    func setDetailCell(imgName: String, name: String, comment: String, rating: Double) {
+        let imgurl = URL(string: imgName)
+        RestaurantImage.sd_setImage(with: imgurl, placeholderImage: UIImage(named: "person"))
+        RestaurantName.text = name
+        RestaurantAddress.text = comment
+        RestaurantDistance.isHidden = true
+        RestaurantReputation.text = "評價：" + String(rating)
+        RestaurantReputation.textColor = .darkGray
+        
+        
     }
  
 }

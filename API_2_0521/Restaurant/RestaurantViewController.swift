@@ -24,7 +24,17 @@ struct content : Codable {
     var photo : String
     var reviewsNumber : Int
     var index : Int
+    var reviews: [review]
 }
+struct review : Codable {
+    var name : String
+    var rating : Double
+    var photo : String
+    var text : String
+    var time : Int
+}
+
+
 /* Data Init */
 class DataModel : Codable {
     var lastIndex = -1
@@ -160,11 +170,8 @@ extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let endLat = RestaurantData?.results.content[indexPath.row].lat ?? 0.0
         let endLng = RestaurantData?.results.content[indexPath.row].lng ?? 0.0
-        
-        let url = "http://maps.google.com/maps?f=d&saddr=\(self.PinLat)%20\(self.PinLng)&daddr=\(endLat)%20\(endLng)&hl=en"
-        if let url = URL(string: url) {
-            UIApplication.shared.open(url)
-        }
+        let VC = RestaurantTableDetailVC(stationLat: PinLat, stationLng: PinLng, endLat: endLat, endLng: endLng, data: (RestaurantData?.results.content[indexPath.row].reviews)!)
+        navigationController?.pushViewController(VC, animated: true)
         
     }
 }

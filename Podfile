@@ -8,5 +8,5 @@ target 'API_2_0521' do
   # Pods for API_2_0521
   pod 'RealmSwift'
   pod 'Toast'
-
+  pod 'SDWebImage', '~> 5.0'
 end
