@@ -22,6 +22,7 @@ struct content : Codable {
     var rating : Double
     var vicinity : String   // Address
     var photo : String
+    var phone: String
     var reviewsNumber : Int
     var index : Int
     var reviews: [review]
@@ -161,8 +162,9 @@ extension RestaurantViewController: UITableViewDelegate,UITableViewDataSource {
         let RestDis = (TargetLocation.distance(from: PinLocation))/1000
         let RestRating = RestaurantData?.results.content[indexPath.row].rating
         let RestComments = RestaurantData?.results.content[indexPath.row].reviewsNumber
+        let Tel = RestaurantData?.results.content[indexPath.row].phone
 
-        cell.setCell(imgName: img!,RestaurantNames: RestNames!,RestaurantVicinity: RestAddr!,RestaurantDis: Float(RestDis), RestaurantRating: RestRating!,RestaurantComments:RestComments!)
+        cell.setCell(imgName: img!,RestaurantNames: RestNames!,RestaurantVicinity: RestAddr!,RestaurantDis: Float(RestDis), RestaurantRating: RestRating!,RestaurantComments:RestComments!, RestaurantTel: Tel ?? "02-00000000")
         return cell
     }
     

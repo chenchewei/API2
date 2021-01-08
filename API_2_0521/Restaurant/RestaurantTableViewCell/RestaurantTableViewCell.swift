@@ -16,6 +16,7 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet var RestaurantAddress: UILabel!
     @IBOutlet var RestaurantDistance: UILabel!
     @IBOutlet var RestaurantReputation: UILabel!
+    @IBOutlet var label_restTel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +29,7 @@ class RestaurantTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int) {
+    func setCell(imgName: String,RestaurantNames: String,RestaurantVicinity: String,RestaurantDis: Float, RestaurantRating: Double,RestaurantComments: Int, RestaurantTel: String) {
         let imgurl = URL(string: imgName)
         RestaurantImage.sd_setImage(with: imgurl, placeholderImage: UIImage(named: "feast"))
         RestaurantName.text = RestaurantNames
@@ -42,6 +43,7 @@ class RestaurantTableViewCell: UITableViewCell {
         }
         RestaurantReputation.text = "評價："+String(RestaurantRating)+"("+String(RestaurantComments)+" 則評論)"
         RestaurantReputation.textColor = .darkGray
+        label_restTel.text = "電話：" + RestaurantTel
     }
     
     func setDetailCell(imgName: String, name: String, comment: String, rating: Double) {
@@ -52,7 +54,7 @@ class RestaurantTableViewCell: UITableViewCell {
         RestaurantDistance.isHidden = true
         RestaurantReputation.text = "評價：" + String(rating)
         RestaurantReputation.textColor = .darkGray
-        
+        label_restTel.isHidden = true
         
     }
  
